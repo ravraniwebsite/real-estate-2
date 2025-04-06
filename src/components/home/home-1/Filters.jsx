@@ -1,11 +1,13 @@
 import { BiBriefcase, BiBuildings, BiMap, BiMoney, BiDownload } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ContactPopupForm from "../../common/page-componets/ContactPopupForm";
 
 const Filters = () => {
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
   const [selectedProperty, setSelectedProperty] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
     fetchProperties();
@@ -68,19 +70,26 @@ const Filters = () => {
             <div className="flex items-center gap-x-2">
               <BiMap className="text-gray-500 dark:text-gray-400 flex-shrink-0" />
               <p className="text-gray-600 dark:text-gray-200 truncate">
-                {selectedProperty?.location || "Select a property"}
+                {selectedProperty?.distance || "Select a property"}
               </p>
             </div>
           </div>
 
-          {/* Price */}
+          {/* Contact Us */}
           <div className="w-full p-3 rounded-lg bg-gray-50 dark:bg-[#2c2c3d] border border-gray-200 dark:border-gray-700">
-            <h1 className="font-medium text-gray-700 dark:text-gray-300 mb-1">Price</h1>
+            <h1 className="font-medium text-gray-700 dark:text-gray-300 mb-1">Contact Us</h1>
             <div className="flex items-center gap-x-2">
-              <BiMoney className="text-gray-500 dark:text-gray-400 flex-shrink-0" />
-              <p className="text-gray-600 dark:text-gray-200 truncate">
-                {selectedProperty?.price || "Select a property"}
-              </p>
+              <BiDownload className="text-gray-500 dark:text-gray-400 flex-shrink-0" />
+              {selectedProperty ? (
+                <button
+                  onClick={() => setIsPopupOpen(true)}
+                  className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 truncate"
+                >
+                  More Details
+                </button>
+              ) : (
+                <p className="text-gray-600 dark:text-gray-200">Select a property</p>
+              )}
             </div>
           </div>
 
@@ -114,6 +123,11 @@ const Filters = () => {
           View Property
         </button>
       </div>
+      <ContactPopupForm 
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        propertyName={selectedProperty?.name || ""}
+      />
     </div>
   );
 };

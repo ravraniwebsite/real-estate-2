@@ -28,7 +28,7 @@ function DetailedPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="pt-16">
+      <div>
         <PropertyDetailPage />
       </div>
       <SideContactButton onClick={() => setIsContactFormOpen(true)} />
@@ -213,7 +213,7 @@ const PropertyDetailPage = () => {
     };
 
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container-fluid p-0">
         {renderTemplate()}
       </div>
     );

@@ -65,18 +65,18 @@ export const PremiumTemplate = ({ venture, theme }) => {
         />
         {/* Improved Logo Section with glass morphism */}
         {venture.premium_logo && (
-          <div className="absolute top-8 left-8 z-10">
-            <div className="bg-white/20 dark:bg-white/15 backdrop-blur-xl rounded-xl p-4 border border-white/40 dark:border-white/30 shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <div className="absolute top-24 left-0 z-10">
+            <div className="bg-white/20 dark:bg-white/15 backdrop-blur-xl p-6 border-y border-r border-white/40 dark:border-white/30 shadow-2xl transform hover:scale-105 transition-all duration-300" style={{ borderTopRightRadius: '12px', borderBottomRightRadius: '12px' }}>
               <img 
                 src={venture.premium_logo} 
                 alt="Premium Property Logo"
-                className="h-16 w-auto object-contain"
+                className="h-32 w-auto object-contain"
               />
             </div>
           </div>
         )}
         {/* Enhanced Hero Content with better spacing and typography */}
-        <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12 text-white">
+        <div className="absolute inset-0 flex flex-col justify-end px-4 pb-8 md:px-8 md:pb-12 text-white">
           <div className="max-w-7xl mx-auto w-full">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between">
               <div className="flex-1">
@@ -105,6 +105,7 @@ export const PremiumTemplate = ({ venture, theme }) => {
               {/* Enhanced CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 md:gap-6 mt-8 md:mt-0">
                 <button
+                  onClick={() => handleOpenPopup('schedule')}
                   className="px-8 py-4 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl"
                   style={{
                     backgroundColor: theme.primaryColor,

@@ -21,7 +21,7 @@ import {
 } from "react-icons/fa";
 import PropertyForm from "./Admin";
 import TestimonialsManager from "../components/admin/TestimonialsManager";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Admin2 = () => {
   const navigate = useNavigate();
@@ -701,7 +701,13 @@ const Admin2 = () => {
                       alt={property.name}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute top-2 right-2">
+                    <div className="absolute top-2 right-2 flex space-x-2">
+                      <Link
+                        to={`/admin/edit-property/${property._id}`}
+                        className="bg-orange-500/80 text-white p-2 rounded-full hover:bg-orange-600 transition-colors"
+                      >
+                        <FaEdit />
+                      </Link>
                       <button
                         onClick={() => handleDeleteProperty(property._id)}
                         className="bg-red-500/80 text-white p-2 rounded-full hover:bg-red-600 transition-colors"
@@ -718,6 +724,27 @@ const Admin2 = () => {
                       <span className="mr-4">{property.number_of_beds} Beds</span>
                       <span className="mr-4">{property.number_of_bathrooms} Baths</span>
                       <span>{property.parking_space} Parking</span>
+                    </div>
+                    <div className="mt-4 flex justify-between items-center">
+                      <div className="px-3 py-1 rounded-full text-xs font-medium" 
+                        style={{
+                          backgroundColor: property.category === 'Premium' 
+                            ? property.premium_color || '#ff6b00' 
+                            : property.category === 'Median' 
+                              ? property.median_color || '#4a90e2'
+                              : property.normal_color || '#ff6b00',
+                          color: '#fff'
+                        }}
+                      >
+                        {property.category}
+                      </div>
+                      <Link
+                        to={`/venture?id=${property._id}`}
+                        className="text-orange-500 hover:text-orange-400 flex items-center"
+                      >
+                        <span className="mr-1">View</span>
+                        <FaChevronRight size={12} />
+                      </Link>
                     </div>
                   </div>
                 </div>
