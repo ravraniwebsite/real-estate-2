@@ -20,6 +20,7 @@ import {
   import { PremiumTemplate } from './templates/PremiumTemplate';
   import { MedianTemplate } from './templates/MedianTemplate';
   import { NormalTemplate } from './templates/NormalTemplate';
+  import Testimonials from '../components/common/Testimonials';
   
 
 function DetailedPage() {
@@ -74,7 +75,7 @@ const PropertyDetailPage = () => {
           setLoading(false);
           return;
         }
-
+  
         const response = await fetch(`https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/get-properties?id=${id}`);
         const data = await response.json();
         
@@ -128,6 +129,10 @@ const PropertyDetailPage = () => {
 
     const theme = getThemeStyles();
 
+    console.log("Current venture state:", venture);
+    console.log("Loading state:", loading);
+    console.log("Error state:", error);
+
     if (error) {
       return (
         <div className="flex items-center justify-center min-h-[60vh]">
@@ -173,15 +178,40 @@ const PropertyDetailPage = () => {
     }
   
     // Render the appropriate template based on category
-    switch (venture.category) {
-      case "Premium":
-        return <PremiumTemplate venture={venture} theme={theme} />;
-      case "Median":
-        return <MedianTemplate venture={venture} theme={theme} />;
-      default:
-        return <NormalTemplate venture={venture} theme={theme} />;
-    }
-  };
+    const renderTemplate = () => {
+      console.log("Rendering template for category:", venture.category);
+      
+      switch (venture.category) {
+        case "Premium":
+          return (
+            <>
+              <PremiumTemplate venture={venture} theme={theme} />
+              <Testimonials testimonials={venture.testimonials} />
+            </>
+          );
+        case "Median":
+          return (
+            <>
+              <MedianTemplate venture={venture} theme={theme} />
+              <Testimonials testimonials={venture.testimonials} />
+            </>
+          );
+        default:
+          return (
+            <>
+              <NormalTemplate venture={venture} theme={theme} />
+              <Testimonials testimonials={venture.testimonials} />
+            </>
+          );
+      }
+    };
+
+    return (
+      <div className="container mx-auto px-4 py-8">
+        {renderTemplate()}
+      </div>
+    );
+};
 
 function Hero({ venture })
 {

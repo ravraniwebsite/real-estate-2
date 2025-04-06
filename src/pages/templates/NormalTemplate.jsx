@@ -20,7 +20,7 @@ export const NormalTemplate = ({ venture, theme }) => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div className="lg:col-span-2 space-y-4">
             {/* Testimonials Section */}
-            {venture.testimonials && venture.testimonials.length > 0 && (
+            {/* {venture.testimonials && venture.testimonials.length > 0 && (
               <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
                 <div className="p-6">
                   <h2 className="text-xl font-bold mb-6 pb-2 border-b-2" style={{ borderColor: theme.secondaryColor }}>
@@ -72,7 +72,7 @@ export const NormalTemplate = ({ venture, theme }) => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
 
             <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
               <Overview venture={venture} theme={theme} />

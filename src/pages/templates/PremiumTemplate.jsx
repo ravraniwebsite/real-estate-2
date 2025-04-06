@@ -123,7 +123,7 @@ export const PremiumTemplate = ({ venture, theme }) => {
       </div>
 
       {/* Enhanced Testimonials Section */}
-      {venture.testimonials && venture.testimonials.length > 0 && (
+      {/* {venture.testimonials && venture.testimonials.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-10 mb-16">
           <div className="bg-white/10 dark:bg-black/30 backdrop-blur-xl rounded-2xl p-6 md:p-8 text-white border border-white/20 dark:border-white/10 shadow-2xl">
             <h2 className="text-3xl font-bold mb-8 relative pb-3">
@@ -177,7 +177,7 @@ export const PremiumTemplate = ({ venture, theme }) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Content Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">

@@ -115,7 +115,7 @@ const Admin2 = () => {
 
   useEffect(() => {
     if (selectedProperty) {
-      const property = properties.find(p => p.id === selectedProperty);
+      const property = properties.find(p => p._id === selectedProperty);
       setSelectedPropertyFaqs(property?.faqs || []);
     }
   }, [selectedProperty, properties]);
@@ -261,8 +261,13 @@ const Admin2 = () => {
     }
 
     try {
-      const property = properties.find(p => p.id === selectedProperty);
-      const updatedFaqs = [...selectedPropertyFaqs, newFaq];
+      const property = properties.find(p => p._id === selectedProperty);
+      if (!property) {
+        alert('Selected property not found');
+        return;
+      }
+
+      const updatedFaqs = [...(property.faqs || []), newFaq];
       
       const response = await fetch(
         `https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/update-property`,
@@ -278,18 +283,19 @@ const Admin2 = () => {
         }
       );
 
-      if (response.ok) {
+      const data = await response.json();
+      if (data.success) {
         setSelectedPropertyFaqs(updatedFaqs);
         setNewFaq({ question: '', answer: '' });
         
         // Update the properties state
         setProperties(properties.map(p => 
-          p.id === selectedProperty 
+          p._id === selectedProperty 
             ? { ...p, faqs: updatedFaqs }
             : p
         ));
       } else {
-        alert('Failed to add FAQ. Please try again.');
+        alert(data.error || 'Failed to add FAQ. Please try again.');
       }
     } catch (error) {
       console.error('Error adding FAQ:', error);
@@ -303,7 +309,13 @@ const Admin2 = () => {
     }
 
     try {
-      const updatedFaqs = selectedPropertyFaqs.filter((_, i) => i !== index);
+      const property = properties.find(p => p._id === selectedProperty);
+      if (!property) {
+        alert('Selected property not found');
+        return;
+      }
+
+      const updatedFaqs = (property.faqs || []).filter((_, i) => i !== index);
       
       const response = await fetch(
         `https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/update-property`,
@@ -319,17 +331,18 @@ const Admin2 = () => {
         }
       );
 
-      if (response.ok) {
+      const data = await response.json();
+      if (data.success) {
         setSelectedPropertyFaqs(updatedFaqs);
         
         // Update the properties state
         setProperties(properties.map(p => 
-          p.id === selectedProperty 
+          p._id === selectedProperty 
             ? { ...p, faqs: updatedFaqs }
             : p
         ));
       } else {
-        alert('Failed to delete FAQ. Please try again.');
+        alert(data.error || 'Failed to delete FAQ. Please try again.');
       }
     } catch (error) {
       console.error('Error deleting FAQ:', error);
@@ -719,11 +732,15 @@ const Admin2 = () => {
                   <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Manage FAQs</h2>
                   <select
                     className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg px-4 py-2 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    value={selectedProperty}
                     onChange={(e) => setSelectedProperty(e.target.value)}
                   >
                     <option value="">Select Property</option>
                     {properties.map((property) => (
-                      <option key={property.id} value={property.id}>
+                      <option 
+                        key={property._id} 
+                        value={property._id}
+                      >
                         {property.name}
                       </option>
                     ))}
