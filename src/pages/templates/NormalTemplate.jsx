@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Hero,
   Overview,
@@ -11,8 +11,18 @@ import {
   MoreDetails,
   CTA
 } from '../DetailedPage';
+import { FaCalendarAlt, FaPhone } from 'react-icons/fa';
+import ContactPopupForm from '../../components/common/page-componets/ContactPopupForm';
 
 export const NormalTemplate = ({ venture, theme }) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupType, setPopupType] = useState('');
+
+  const handleOpenPopup = (type) => {
+    setPopupType(type);
+    setIsPopupOpen(true);
+  };
+
   return (
     <div className="space-y-4">
       <Hero venture={venture} theme={theme} />
@@ -83,8 +93,26 @@ export const NormalTemplate = ({ venture, theme }) => {
               </div>
             )}
             {venture.layouts && venture.layouts.length > 0 && (
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
-                <Layouts layouts={venture.layouts} theme={theme} />
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div className="p-6">
+                  <h2 className="text-xl font-bold mb-6 text-gray-900 dark:text-white pb-2 border-b-2" style={{ borderColor: theme.secondaryColor }}>
+                    Floor Plans & Layouts
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {venture.layouts.map((layout, index) => (
+                      <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden shadow-sm">
+                        <img
+                          src={layout.img}
+                          alt={layout.name}
+                          className="w-full h-48 object-cover"
+                        />
+                        <div className="p-4">
+                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{layout.name}</h3>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
             {venture.image && venture.image.length > 0 && (
@@ -103,20 +131,44 @@ export const NormalTemplate = ({ venture, theme }) => {
               </div>
             )}
             {venture.legal_compliance && venture.legal_compliance.length > 0 && (
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
-                <LegalCompilance legal_compliance={venture.legal_compliance} theme={theme} />
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div className="p-6">
+                  <h2 className="text-xl font-bold mb-6 text-gray-900 dark:text-white pb-2 border-b-2" style={{ borderColor: theme.secondaryColor }}>
+                    Legal Compliance
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {venture.legal_compliance.map((item, index) => (
+                      <div key={index} className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">{item.key}</h3>
+                        <p className="text-gray-700 dark:text-gray-200">{item.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
             {venture.more_details && venture.more_details.length > 0 && (
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
-                <MoreDetails more_details={venture.more_details} theme={theme} />
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div className="p-6">
+                  <h2 className="text-xl font-bold mb-6 text-gray-900 dark:text-white pb-2 border-b-2" style={{ borderColor: theme.secondaryColor }}>
+                    Additional Details
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {venture.more_details.map((detail, index) => (
+                      <div key={index} className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">{detail.key}</h3>
+                        <p className="text-gray-700 dark:text-gray-200">{detail.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
           </div>
           <div className="lg:col-span-1">
             <div className="sticky top-20">
-              <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
-                <CTA theme={theme} />
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <CTA venture={venture} />
               </div>
             </div>
           </div>
@@ -140,6 +192,11 @@ export const NormalTemplate = ({ venture, theme }) => {
           background-color: ${theme.hoverColor};
         }
       `}</style>
+      <ContactPopupForm
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        propertyName={venture.name}
+      />
     </div>
   );
 }; 
