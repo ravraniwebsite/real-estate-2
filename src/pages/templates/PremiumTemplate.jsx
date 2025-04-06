@@ -17,12 +17,20 @@ import {
 } from "react-icons/fa";
 import { SiClubhouse } from "react-icons/si";
 import { GiPowerGenerator } from "react-icons/gi";
+import ContactPopupForm from '../../components/common/page-componets/ContactPopupForm';
 
 export const PremiumTemplate = ({ venture, theme }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeFaq, setActiveFaq] = useState(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupType, setPopupType] = useState('');
   const marqueeRef = useRef(null);
+
+  const handleOpenPopup = (type) => {
+    setPopupType(type);
+    setIsPopupOpen(true);
+  };
 
   // Improved scrolling text effect
   useEffect(() => {
@@ -336,27 +344,7 @@ export const PremiumTemplate = ({ venture, theme }) => {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
                       </div>
                       <div className="p-6">
-                        <h3 className="text-xl font-semibold mb-2">{layout.name}</h3>
-                        <button
-                          className="text-orange-400 hover:text-orange-300 font-medium flex items-center transition-all duration-300"
-                          style={{ color: theme.primaryColor }}
-                        >
-                          View Details
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 ml-2 transform transition-transform duration-300 group-hover:translate-x-1"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                        </button>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{layout.name}</h3>
                       </div>
                     </div>
                   ))}
@@ -396,10 +384,10 @@ export const PremiumTemplate = ({ venture, theme }) => {
                       </div>
                       <div>
                         <h3 className="text-lg font-semibold mb-1">Address</h3>
-                        <p className="text-gray-300">{venture.distance}</p>
+                        <p className="text-gray-700 dark:text-gray-200">{venture.distance}</p>
                       </div>
                     </div>
-                    <div className="flex items-start space-x-4">
+                    {/* <div className="flex items-start space-x-4">
                       <div className="p-3 rounded-lg bg-white/10 shadow-md">
                         <FaCalendarAlt className="text-2xl" style={{ color: theme.primaryColor }} />
                       </div>
@@ -412,7 +400,7 @@ export const PremiumTemplate = ({ venture, theme }) => {
                           Schedule Site Visit
                         </button>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -420,16 +408,16 @@ export const PremiumTemplate = ({ venture, theme }) => {
 
             {/* Enhanced Legal Compliance */}
             {venture.legal_compliance && venture.legal_compliance.length > 0 && (
-              <div className="bg-white/10 dark:bg-black/30 backdrop-blur-xl rounded-2xl p-6 md:p-8 text-gray-800 dark:text-white border border-white/20 dark:border-white/10 shadow-xl transform transition-all duration-500 hover:shadow-2xl hover:border-white/30 dark:hover:border-white/20">
+              <div className="bg-white dark:bg-gray-800 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-700 shadow-xl">
                 <h2 className="text-3xl font-bold mb-8 relative pb-3 text-gray-900 dark:text-white">
                   Legal Compliance
                   <span className="absolute bottom-0 left-0 w-24 h-1 rounded-full" style={{ backgroundColor: theme.primaryColor }}></span>
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   {venture.legal_compliance.map((item, index) => (
-                    <div key={index} className="bg-white/5 dark:bg-black/20 p-6 rounded-xl border border-white/10 dark:border-white/5 hover:border-white/30 dark:hover:border-white/20 transition-all duration-300 transform hover:scale-102">
-                      <h3 className="text-xl font-semibold mb-2">{item.key}</h3>
-                      <p className="text-gray-300">{item.value}</p>
+                    <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-xl border border-gray-200 dark:border-gray-600">
+                      <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{item.key}</h3>
+                      <p className="text-gray-700 dark:text-gray-200">{item.value}</p>
                     </div>
                   ))}
                 </div>
@@ -438,16 +426,16 @@ export const PremiumTemplate = ({ venture, theme }) => {
 
             {/* Enhanced More Details */}
             {venture.more_details && venture.more_details.length > 0 && (
-              <div className="bg-white/10 dark:bg-black/30 backdrop-blur-xl rounded-2xl p-6 md:p-8 text-gray-800 dark:text-white border border-white/20 dark:border-white/10 shadow-xl transform transition-all duration-500 hover:shadow-2xl hover:border-white/30 dark:hover:border-white/20">
+              <div className="bg-white dark:bg-gray-800 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-700 shadow-xl">
                 <h2 className="text-3xl font-bold mb-8 relative pb-3 text-gray-900 dark:text-white">
                   Additional Details
                   <span className="absolute bottom-0 left-0 w-24 h-1 rounded-full" style={{ backgroundColor: theme.primaryColor }}></span>
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   {venture.more_details.map((detail, index) => (
-                    <div key={index} className="bg-white/5 dark:bg-black/20 p-6 rounded-xl border border-white/10 dark:border-white/5 hover:border-white/30 dark:hover:border-white/20 transition-all duration-300 transform hover:scale-102">
-                      <h3 className="text-xl font-semibold mb-2">{detail.key}</h3>
-                      <p className="text-gray-300">{detail.value}</p>
+                    <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-xl border border-gray-200 dark:border-gray-600">
+                      <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{detail.key}</h3>
+                      <p className="text-gray-700 dark:text-gray-200">{detail.value}</p>
                     </div>
                   ))}
                 </div>
@@ -490,52 +478,42 @@ export const PremiumTemplate = ({ venture, theme }) => {
           {/* Enhanced CTA Section */}
           <div className="lg:col-span-1">
             <div className="sticky top-20">
-              <div
-                className="bg-white/10 dark:bg-black/30 backdrop-blur-xl rounded-2xl p-6 md:p-8 text-gray-800 dark:text-white border border-white/30 dark:border-white/20 shadow-2xl transform transition-all duration-500 hover:shadow-xl hover:border-white/40 dark:hover:border-white/30"
-                style={{ borderColor: `${theme.primaryColor}40` }}
-              >
-                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white">Ready to make this property your new home?</h2>
-                <p className="text-lg mb-6 md:mb-8 text-gray-700 dark:text-gray-200">
+              <div className="bg-white dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-700 shadow-2xl transform transition-all duration-500 hover:shadow-xl">
+                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900 dark:text-white">
+                  Ready to make this property your new home?
+                </h2>
+                <p className="text-lg mb-6 md:mb-8 text-gray-600 dark:text-gray-300">
                   Contact our sales team today to schedule a visit or to get more information about this amazing property.
                 </p>
                 <div className="space-y-4">
                   <button
+                    onClick={() => handleOpenPopup('schedule')}
                     className="w-full px-6 py-4 rounded-xl text-lg font-semibold flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-102 transition-all duration-300"
                     style={{
                       backgroundColor: theme.primaryColor,
-                      color: '#ffffff'  // Force white text for primary button
+                      color: theme.textColor
                     }}
                   >
-                    <FaCalendarAlt className="mr-3 text-white" />
+                    <FaCalendarAlt className="mr-3" />
                     Schedule a Visit
                   </button>
                   <button
-                    className="w-full px-6 py-4 rounded-xl text-lg font-semibold flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-102 transition-all duration-300"
+                    onClick={() => handleOpenPopup('contact')}
+                    className="w-full px-6 py-4 rounded-xl text-lg font-semibold flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-102 transition-all duration-300 bg-transparent"
                     style={{
-                      backgroundColor: theme.mode === 'light' ? '#ffffff' : 'transparent',
-                      color: theme.mode === 'light' ? '#000000' : '#ffffff',
-                      border: theme.mode === 'light' ? '2px solid #000000' : '2px solid rgba(255, 255, 255, 0.7)'
+                      border: `2px solid ${theme.primaryColor}`,
+                      color: theme.primaryColor
                     }}
                   >
-                    <FaPhone 
-                      className="mr-3" 
-                      style={{ color: 'inherit' }}
-                    />
+                    <FaPhone className="mr-3" />
                     Contact Sales Team
                   </button>
                 </div>
                 
-                {/* Added premium badge */}
+                {/* Premium badge */}
                 <div className="mt-8 flex justify-center">
-                  <div 
-                    className="rounded-full px-6 py-3 flex items-center"
-                    style={{
-                      backgroundColor: theme.mode === 'light' ? '#ffffff' : 'rgba(255, 255, 255, 0.1)',
-                      border: theme.mode === 'light' ? '2px solid #000000' : '1px solid rgba(255, 255, 255, 0.2)',
-                      color: theme.mode === 'light' ? '#000000' : '#ffffff'
-                    }}
-                  >
-                    <span className="text-sm font-medium mr-2">
+                  <div className="rounded-full px-6 py-3 flex items-center bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600">
+                    <span className="text-sm font-medium text-gray-900 dark:text-white mr-2">
                       Premium Property
                     </span>
                     <span className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.primaryColor }}></span>
@@ -549,10 +527,10 @@ export const PremiumTemplate = ({ venture, theme }) => {
 
       {/* Route Map Section */}
       {venture.route_map && (
-        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 text-white mb-8">
-          <h2 className="text-3xl font-bold mb-8 relative pb-2">
+        <div className="bg-white dark:bg-gray-800 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-700 shadow-xl">
+          <h2 className="text-3xl font-bold mb-8 relative pb-3 text-gray-900 dark:text-white">
             Route Map & Nearby Places
-            <span className="absolute bottom-0 left-0 w-24 h-1" style={{ backgroundColor: theme.primaryColor }}></span>
+            <span className="absolute bottom-0 left-0 w-24 h-1 rounded-full" style={{ backgroundColor: theme.primaryColor }}></span>
           </h2>
           <div className="relative rounded-xl overflow-hidden" style={{ height: '400px' }}>
             <img
@@ -560,13 +538,19 @@ export const PremiumTemplate = ({ venture, theme }) => {
               alt="Route Map"
               className="w-full h-full object-cover"
             />
-            <div className="absolute bottom-4 right-4 flex items-center space-x-2 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-lg">
-              <FaRoute className="text-orange-500" />
-              <span className="text-white text-sm">Route Map</span>
+            <div className="absolute bottom-4 right-4 flex items-center space-x-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700">
+              <FaRoute className="text-gray-700 dark:text-gray-200" />
+              <span className="text-gray-900 dark:text-white text-sm font-medium">Route Map</span>
             </div>
           </div>
         </div>
       )}
+
+      <ContactPopupForm
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        propertyName={venture.name}
+      />
     </div>
   );
 };

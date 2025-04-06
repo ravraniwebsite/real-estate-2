@@ -186,21 +186,27 @@ const PropertyDetailPage = () => {
           return (
             <>
               <PremiumTemplate venture={venture} theme={theme} />
-              <Testimonials testimonials={venture.testimonials} />
+              {
+                venture.testimonials && <Testimonials testimonials={venture.testimonials} />
+              }
             </>
           );
         case "Median":
           return (
             <>
               <MedianTemplate venture={venture} theme={theme} />
-              <Testimonials testimonials={venture.testimonials} />
+              {
+                venture.testimonials && <Testimonials testimonials={venture.testimonials} />
+              }
             </>
           );
         default:
           return (
             <>
               <NormalTemplate venture={venture} theme={theme} />
-              <Testimonials testimonials={venture.testimonials} />
+              {
+                venture.testimonials && <Testimonials testimonials={venture.testimonials} />
+              }
             </>
           );
       }
@@ -213,61 +219,72 @@ const PropertyDetailPage = () => {
     );
 };
 
-function Hero({ venture })
-{
-    return <div
-    className="relative h-[90vh] min-h-[600px] w-full overflow-hidden"
+function Hero({ venture }) {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  return (
+    <>
+      <div
+        className="relative h-[90vh] min-h-[600px] w-full overflow-hidden"
         style={{
-        backgroundImage:` linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url( ${ venture.banner_image ? venture.banner_image : venture.image[0] })`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+          backgroundImage: ` linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${venture.banner_image ? venture.banner_image : venture.image[0]})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
-  >
-    <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white">
-      <div className="max-w-7xl mx-auto w-full">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between">
-          <div className="flex-1">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-              { venture.name }
-            </h1>
-            <div className="flex items-center text-lg mb-4">
-              <FaMapMarkerAlt className="mr-2" />
-              { venture.distance }
+      >
+        <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 text-white">
+          <div className="max-w-7xl mx-auto w-full">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between">
+              <div className="flex-1">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                  {venture.name}
+                </h1>
+                <div className="flex items-center text-lg mb-4">
+                  <FaMapMarkerAlt className="mr-2" />
+                  {venture.distance}
+                </div>
+                <div className="flex flex-wrap gap-6 text-lg">
+                  <div className="flex items-center">
+                    <FaBed className="mr-2" />
+                    {venture.number_of_beds} Bedrooms
+                  </div>
+                  <div className="flex items-center">
+                    <FaBath className="mr-2" />
+                    {venture.number_of_bathrooms} Bathrooms
+                  </div>
+                  <div className="flex items-center">
+                    <FaParking className="mr-2" />
+                    {venture.parking_space} Parking Spaces
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 mt-6 md:mt-0">
+                <button
+                  onClick={() => setIsPopupOpen(true)}
+                  className="bg-orange-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-orange-600 transform hover:scale-105 transition-all flex items-center justify-center"
+                >
+                  <FaCalendarAlt className="mr-2" />
+                  Schedule a Visit
+                </button>
+                <button
+                  className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-orange-500 transform hover:scale-105 transition-all flex items-center justify-center"
+                  onClick={() => window.open(venture.brochure, "_blank")}
+                >
+                  <FaDownload className="mr-2" />
+                  Download Brochure
+                </button>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-6 text-lg">
-              <div className="flex items-center">
-                <FaBed className="mr-2" />
-                { venture.number_of_beds} Bedrooms
-              </div>
-              <div className="flex items-center">
-                <FaBath className="mr-2" />
-                { venture.number_of_bathrooms} Bathrooms
-              </div>
-              <div className="flex items-center">
-                <FaParking className="mr-2" />
-                { venture.parking_space } Parking Spaces
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 mt-6 md:mt-0">
-            <button
-              className="bg-orange-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-orange-600 transform hover:scale-105 transition-all flex items-center justify-center"
-            >
-              <FaCalendarAlt className="mr-2" />
-              Schedule a Visit
-            </button>
-            <button
-              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-white hover:text-orange-500 transform hover:scale-105 transition-all flex items-center justify-center"
-              onClick={()=>window.open( venture.brochure , "_blank" )}
-            >
-              <FaDownload className="mr-2" />
-              Download Brochure
-            </button>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+      <ContactPopupForm
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        propertyName={venture.name}
+      />
+    </>
+  );
 }
 
 function Overview({ venture }) {
@@ -446,7 +463,6 @@ function ImageSection({ image }) {
   );
 }
 
-
 function YoutubeEmbedVideo({ video2 }) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
@@ -476,74 +492,44 @@ function YoutubeEmbedVideo({ video2 }) {
   );
 }
 
-function CTA()
-{
-    return <div
-    className="bg-orange-500 rounded-xl p-6 text-white"
-    >
-    <h2
-      style={{
-        fontSize: "2rem",
-        marginBottom: "1rem",
-      }}
-    >
-      Ready to make this property your new home?
-    </h2>
-    <p
-      style={{
-        fontSize: "1.1rem",
-        marginBottom: "2rem",
-        maxWidth: "700px",
-        margin: "0 auto 2rem",
-      }}
-    >
-      Contact our sales team today to schedule a visit or to get more
-      information about this amazing property.
-    </p>
-    <div
-      style={{
-        display: "flex",
-        gap: "1rem",
-        justifyContent: "center",
-        flexWrap: "wrap",
-      }}
-    >
-      <button
-        style={{
-          backgroundColor: "white",
-          color: "#ff6b00",
-          border: "none",
-          padding: "0.75rem 1.5rem",
-          borderRadius: "4px",
-          fontSize: "1rem",
-          fontWeight: "bold",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <FaCalendarAlt style={{ marginRight: "0.5rem" }} />
-        Schedule a Visit
-      </button>
-      <button
-        style={{
-          backgroundColor: "transparent",
-          color: "white",
-          border: "2px solid white",
-          padding: "0.75rem 1.5rem",
-          borderRadius: "4px",
-          fontSize: "1rem",
-          fontWeight: "bold",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <FaPhone style={{ marginRight: "0.5rem" }} />
-        Contact Sales Team
-      </button>
-    </div>
-  </div>
+function CTA({ venture }) {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  return (
+    <>
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
+        <h2 className="text-2xl font-bold mb-6 relative pb-2 text-gray-900 dark:text-white">
+          Ready to make this property your new home?
+          <span className="absolute bottom-0 left-0 w-20 h-1 bg-orange-500"></span>
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 text-lg mb-8 max-w-3xl">
+          Contact our sales team today to schedule a visit or to get more
+          information about this amazing property.
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <button 
+            onClick={() => setIsPopupOpen(true)}
+            className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700 transition-colors flex items-center"
+          >
+            <FaCalendarAlt className="mr-2" />
+            Schedule a Visit
+          </button>
+          <button 
+            onClick={() => setIsPopupOpen(true)}
+            className="bg-transparent border-2 border-orange-500 text-orange-500 dark:border-orange-400 dark:text-orange-400 px-6 py-3 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors flex items-center"
+          >
+            <FaPhone className="mr-2" />
+            Contact Sales Team
+          </button>
+        </div>
+      </div>
+      <ContactPopupForm
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        propertyName={venture.name}
+      />
+    </>
+  );
 }
 
 
