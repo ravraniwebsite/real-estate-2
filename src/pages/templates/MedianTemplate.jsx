@@ -20,7 +20,7 @@ export const MedianTemplate = ({ venture, theme }) => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
             {/* Testimonials Section */}
-            {venture.testimonials && venture.testimonials.length > 0 && (
+            {/* {venture.testimonials && venture.testimonials.length > 0 && (
               <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-l-4" style={{ borderLeftColor: theme.primaryColor }}>
                 <div className="p-8">
                   <h2 className="text-2xl font-bold mb-8 relative pb-2">
@@ -74,7 +74,7 @@ export const MedianTemplate = ({ venture, theme }) => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
 
             <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-l-4" style={{ borderLeftColor: theme.primaryColor }}>
               <Overview venture={venture} theme={theme} />
