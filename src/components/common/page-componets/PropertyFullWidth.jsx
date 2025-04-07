@@ -14,7 +14,7 @@ const PropertyFullWidth = () => {
     console.log(data);
     
     setProperties(data.data)
-  }
+  }  
 
   useEffect(()=>{
     getData();
