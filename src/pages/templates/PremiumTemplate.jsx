@@ -32,6 +32,13 @@ export const PremiumTemplate = ({ venture, theme }) => {
     setIsPopupOpen(true);
   };
 
+  const handleWhatsAppRedirect = () => {
+    // Extract the phone number from the price field (format: +91(number))
+    const phoneNumber = venture.price.replace('+91', '');
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=91${phoneNumber}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   // Improved scrolling text effect
   useEffect(() => {
     let animationId;
@@ -506,7 +513,7 @@ export const PremiumTemplate = ({ venture, theme }) => {
                     Schedule a Visit
                   </button>
                   <button
-                    onClick={() => handleOpenPopup('contact')}
+                    onClick={handleWhatsAppRedirect}
                     className="w-full px-6 py-4 rounded-xl text-lg font-semibold flex items-center justify-center"
                     style={{
                       border: `2px solid ${theme.primaryColor}`,

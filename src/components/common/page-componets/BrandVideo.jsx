@@ -7,7 +7,7 @@ const BrandVideo = () => {
             Our Story
           </span>
           <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white">
-            Watch Our Brand Story
+            Watch Our Comapny Story
           </h2>
         </div>
         

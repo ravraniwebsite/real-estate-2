@@ -24,11 +24,13 @@ const Categories = () => {
             find your dream house by searching our popular categories
           </h1>
           <p className="mt-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-            veniam, odio suscipit minima accusamus ipsum.
+            At Ravrani Developers, we specialize in premium residential plotting ventures across Hyderabad's fastest-growing locations.  Need more information? Contact us today!
           </p>
-          <button className="mt-4 btn btn-primary">all categories</button>
-        </div>
+         
+          <p>
+            <strong>Email:</strong> info@ravranidevelopers.com
+          </p>
+                </div>
         <div className="md:col-span-3 ">
           <div className="justify-end flex-align-center gap-x-3">
             <button

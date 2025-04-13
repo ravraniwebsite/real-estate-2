@@ -4,8 +4,11 @@ import {
   BiFullscreen,
   BiHomeAlt,
   BiMoney,
+  
   BiShieldAlt2,
 } from "react-icons/bi";
+import { FaRegBuilding, FaHouseUser, FaHandshake, FaWallet, FaFileSignature, FaHeadset } from "react-icons/bi";
+
 import {
   FaBehance,
   FaDribbble,
@@ -598,41 +601,42 @@ export const teamMembers = [
 export const services = [
   {
     id: 1,
-    name: "luxury apartment",
+    name: "Buy a Plot + Build Home",
     icon: <BiBuildingHouse />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    text: "Select your plot and let us design your dream home — custom architecture to fit your lifestyle and budget.",
   },
   {
     id: 2,
-    name: "architectural design",
-    icon: <BiFullscreen />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    name: "Pre-Built Homes",
+    icon: <BiHomeAlt />,
+    text: "Choose from ready-to-move-in houses crafted with modern designs, quality materials, and spacious layouts.",
   },
   {
     id: 3,
-    name: "extra security",
+    name: "Bank Loan Facility",
     icon: <BiShieldAlt2 />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    text: "We assist you in securing home loans through trusted financial partners for hassle-free ownership.",
   },
   {
     id: 4,
-    name: "Home remodelling",
-    icon: <BiHomeAlt />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    name: "Flexible Payment Plans",
+    icon: <FaPaintRoller />,
+    text: "Enjoy installment-based payment options that make home ownership affordable and stress-free.",
   },
   {
     id: 5,
-    name: "office renovation",
-    icon: <FaPaintRoller />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    name: "Spot Registration",
+    icon: <BiFullscreen />,
+    text: "Get your property registered on the spot with complete legal support and verified documentation.",
   },
   {
     id: 6,
-    name: "24/7 support",
+    name: "24/7 Customer Support",
     icon: <FiHeadphones />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    text: "We’re here whenever you need us — from booking to possession and every step in between.",
   },
 ];
+
 
 export const projects = [
   {
@@ -681,26 +685,28 @@ export const brands = [
   "/images/brands/uber.png",
 ];
 
+
 export const focus = [
   {
     id: 1,
-    name: "Buy a New Home",
+    name: "Buy a Plot + Build Home",
     icon: <BiHomeAlt />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    text: "Choose your ideal plot and let us help you build a dream home with custom design tailored to your lifestyle and budget.",
   },
   {
     id: 2,
-    name: "Sell a Home",
+    name: "Buy a Pre-Built Home",
     icon: <BiMoney />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    text: "Move in immediately with a ready-to-live villa, crafted with quality construction and modern amenities, all at an affordable price.",
   },
   {
-    id: 4,
-    name: "Rent a Home",
+    id: 3,
+    name: "Bank Loan Facility",
     icon: <BiBuildings />,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod earum commodi provident est ex similique.",
+    text: "Get easy access to home loans through our trusted financial partners to secure your property with minimal hassle.",
   },
 ];
+
 
 export const categories = [
   {
@@ -856,38 +862,39 @@ export const tags = [
 export const faqs = [
   {
     id: 1,
-    question: "How can we help?",
+    question: "What services do Ravrani Developers offer?",
     response:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto nisi, molestias ipsam dolorum laudantium corrupti optio cupiditate libero odit cum, labore ab sint officiis reiciendis quisquam perferendis, facilis facere iste inventore architecto blanditiis suscipit. Voluptatibus.",
+      "Ravrani Developers specializes in residential plotting ventures across Hyderabad’s prime locations. We offer flexible options like buying plots with custom-built homes, ready-to-move-in villas, and bank loan facilities. Our services ensure quality, legal security, and transparency.",
   },
   {
     id: 2,
-    question: "How can I make refund from your website?",
+    question: "What types of properties can I buy from Ravrani Developers?",
     response:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto nisi, molestias ipsam dolorum laudantium corrupti optio cupiditate libero odit cum, labore ab sint officiis reiciendis quisquam perferendis, facilis facere iste inventore architecto blanditiis suscipit. Voluptatibus.",
+      "We offer plots, custom-designed homes, and pre-built villas. You can buy plots and either build your own home with our assistance or choose from ready-to-move-in villas with modern designs and quality construction.",
   },
   {
     id: 3,
-    question: "Do you store any of my information?",
+    question: "Are your properties legally secure?",
     response:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto nisi, molestias ipsam dolorum laudantium corrupti optio cupiditate libero odit cum, labore ab sint officiis reiciendis quisquam perferendis, facilis facere iste inventore architecto blanditiis suscipit. Voluptatibus.",
+      "Yes, all our projects are HMDA, DTCP, and RERA approved. We ensure clear titles, spot registration, and complete assistance with documentation to provide you with a hassle-free experience.",
   },
   {
     id: 4,
-    question: "Should I talk to the bank before booking a home?",
+    question: "Do you offer financial assistance?",
     response:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto nisi, molestias ipsam dolorum laudantium corrupti optio cupiditate libero odit cum, labore ab sint officiis reiciendis quisquam perferendis, facilis facere iste inventore architecto blanditiis suscipit. Voluptatibus.",
+      "Yes, we offer bank loan facilities in partnership with trusted financial institutions. Additionally, we provide flexible payment plans, including easy EMI options, to make property ownership affordable.",
   },
   {
     id: 5,
-    question: "How do i make payments using my credit card?",
+    question: "What are the advantages of choosing Ravrani Developers?",
     response:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto nisi, molestias ipsam dolorum laudantium corrupti optio cupiditate libero odit cum, labore ab sint officiis reiciendis quisquam perferendis, facilis facere iste inventore architecto blanditiis suscipit. Voluptatibus.",
+      "Choosing Ravrani Developers means investing in properties with 100% Vaastu-compliant layouts, modern amenities, 24/7 security, and premium locations. Our projects are designed to ensure long-term growth, and we provide excellent customer service throughout the process.",
   },
   {
     id: 6,
-    question: "How do i link multiple accounts with my phone?",
+    question: "How can I get more information or contact you?",
     response:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto nisi, molestias ipsam dolorum laudantium corrupti optio cupiditate libero odit cum, labore ab sint officiis reiciendis quisquam perferendis, facilis facere iste inventore architecto blanditiis suscipit. Voluptatibus.",
+      "You can reach out to us via phone at +91-XXXXXXXXXX, email at info@ravranidevelopers.com, or visit our website at ravrani-developers.netlify.app. We’re always here to assist you with your property needs.",
   },
 ];
+

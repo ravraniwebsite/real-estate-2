@@ -13,12 +13,11 @@ const Footer = () => {
           <div className="flex-1 basis-[10rem]">
             <Link to="/" className="flex-shrink-0 flex-align-center gap-x-1">
               <BiBuildingHouse className="text-3xl text-primary" />
-              <h1 className="hidden md:block">Your Company Name</h1>
+              <h1 className="hidden md:block">Ravrani Developers</h1>
             </Link>
             <div className="mt-3">
               <p className="text-sm">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab
-                harum explicabo illo, magnam vitae expedita.
+              Premium residential plotting ventures in Hyderabad’s fastest-growing locations. Buy a plot, build a custom home, or move into a ready-built villa — we make your property dreams come true.
               </p>
               <div className="gap-5 my-6 flex-center-center">
                 <div className="icon-box bg-dark-light hover:bg-hover-color-dark">
@@ -41,20 +40,12 @@ const Footer = () => {
           </div>
 
           <div className="flex-1 basis-[10rem]">
-            <h2 className="text-xl font-semibold">Properties</h2>
+            <h2 className="text-xl font-semibold">Ventures</h2>
             <ul>
               <li className="my-3 text-muted">
-                <Link to="/properties">All Properties</Link>
+                <Link to="/property">All Ventures</Link>
               </li>
-              <li className="my-3 text-muted">
-                <Link to="/properties/residential">Residential</Link>
-              </li>
-              <li className="my-3 text-muted">
-                <Link to="/properties/commercial">Commercial</Link>
-              </li>
-              <li className="my-3 text-muted">
-                <Link to="/properties/featured">Featured</Link>
-              </li>
+             
             </ul>
           </div>
 
@@ -62,16 +53,16 @@ const Footer = () => {
             <h2 className="text-xl font-semibold">Quick Links</h2>
             <ul>
               <li className="my-3 text-muted">
-                <Link to="/about">About Us</Link>
+                <Link to="/about-us">About Us</Link>
               </li>
               <li className="my-3 text-muted">
                 <Link to="/contact">Contact</Link>
               </li>
               <li className="my-3 text-muted">
-                <Link to="/blog">Blog</Link>
+                <Link to="/services">Services</Link>
               </li>
               <li className="my-3 text-muted">
-                <Link to="/agents">Our Agents</Link>
+                <Link to="/faqs">Faqs</Link>
               </li>
             </ul>
           </div>
@@ -101,7 +92,7 @@ const Footer = () => {
                 <a href="tel:0123456789">Ph: 0123456789</a>
               </li>
               <li className="my-3 text-muted">
-                <a href="mailto:sales@company.com">Email: sales@company.com</a>
+                <a href="mailto:sales@company.com">Email: info@ravranidevelopers.com</a>
               </li>
             </ul>
 
@@ -125,8 +116,7 @@ const Footer = () => {
       </footer>
       <div className="py-2 mt-3 text-center border-t text-muted border-dark">
         <p>
-          Created By <span className="text-primary">design-with-sanjay</span> | All
-          Rights Reserved
+        © 2025 <span className="text-primary">Ravrani Developers</span> | All Rights Reserved
         </p>
       </div>
     </div>

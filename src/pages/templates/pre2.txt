@@ -551,6 +551,7 @@ const Admin2 = () => {
                           <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Phone</th>
                           <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Property</th>
                           <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
+                          <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
                         </tr>
                       </thead>
                       <tbody className="bg-gray-800 divide-y divide-gray-700">
@@ -561,6 +562,20 @@ const Admin2 = () => {
                             <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.phone}</td>
                             <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.property}</td>
                             <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.date}</td>
+                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm">
+                              <button 
+                                className="text-orange-500 hover:text-orange-400 mr-3"
+                                onClick={() => alert("Edit functionality coming soon!")}
+                              >
+                                <FaEdit />
+                              </button>
+                              <button 
+                                className="text-red-500 hover:text-red-400"
+                                onClick={() => handleDeleteEnquiry(enquiry._id)}
+                              >
+                                <FaTrash />
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -646,6 +661,9 @@ const Admin2 = () => {
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                           Email
                         </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                          Actions
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="bg-gray-800 divide-y divide-gray-700">
@@ -656,6 +674,14 @@ const Admin2 = () => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                             {subscriber.email}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm">
+                            <button 
+                              className="text-red-500 hover:text-red-400"
+                              onClick={() => handleDeleteNewsletter(subscriber.id)}
+                            >
+                              <FaTrash />
+                            </button>
                           </td>
                         </tr>
                       ))}
@@ -668,7 +694,7 @@ const Admin2 = () => {
           {activeTab === "Showcase" && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {properties.map((property) => (
-                <div key={property._id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                <div key={property._id} className="bg-gray-700 rounded-lg shadow-md overflow-hidden">
                   <div className="relative h-48">
                     <img
                       src={property.banner_image || property.image[0]}
@@ -676,6 +702,12 @@ const Admin2 = () => {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute top-2 right-2 flex space-x-2">
+                      <Link
+                        to={`/admin/edit-property/${property._id}`}
+                        className="bg-orange-500/80 text-white p-2 rounded-full hover:bg-orange-600 transition-colors"
+                      >
+                        <FaEdit />
+                      </Link>
                       <button
                         onClick={() => handleDeleteProperty(property._id)}
                         className="bg-red-500/80 text-white p-2 rounded-full hover:bg-red-600 transition-colors"
@@ -685,10 +717,10 @@ const Admin2 = () => {
                     </div>
                   </div>
                   <div className="p-4">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{property.name}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">{property.distance}</p>
+                    <h3 className="text-lg font-semibold text-gray-100 mb-2">{property.name}</h3>
+                    <p className="text-gray-400 text-sm mb-2">{property.distance}</p>
                     <p className="text-orange-500 font-semibold mb-2">{property.price}</p>
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center text-sm text-gray-400">
                       <span className="mr-4">{property.number_of_beds} Beds</span>
                       <span className="mr-4">{property.number_of_bathrooms} Baths</span>
                       <span>{property.parking_space} Parking</span>

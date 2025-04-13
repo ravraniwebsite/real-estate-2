@@ -42,6 +42,9 @@ const SingleProductCard = ({
         </div>
         {/*<CardLabels purpose={purpose} distance={distance} />*/}
         <div className="p-4">
+        <Link to="/" className="group-hover:text-primary transition-a">
+            <h1 className="text-lg font-bold capitalize">{name}</h1>
+          </Link>
           {/* Basic Information Section */}
           <div className="space-y-3">
             

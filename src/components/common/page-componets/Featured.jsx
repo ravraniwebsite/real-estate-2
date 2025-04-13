@@ -22,7 +22,7 @@ const Featured = () => {
           featured
         </span>
         <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white">
-          Explore Featured Latest Properties
+          Explore Featured Latest Ventures
         </h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
