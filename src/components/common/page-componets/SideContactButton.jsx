@@ -1,5 +1,3 @@
-import { BiMessageDetail } from 'react-icons/bi';
-
 const SideContactButton = ({ onClick }) => {
   const handleClick = () => {
     if (onClick) {
@@ -16,15 +14,18 @@ const SideContactButton = ({ onClick }) => {
 
   return (
     <button
-      onClick={handleClick}
-      className="fixed right-0 top-1/2 -translate-y-1/2 bg-orange-600 text-white p-3 rounded-l-lg shadow-lg hover:bg-orange-700 transition-colors z-40 group"
-    >
-      <BiMessageDetail size={24} />
-      <span className="absolute right-full top-1/2 -translate-y-1/2 bg-orange-600 text-white py-2 px-4 rounded-l-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap mr-2">
-        Contact Us
-      </span>
-    </button>
+  onClick={handleClick}
+  className="fixed right-0 top-1/2 -translate-y-1/2 bg-[#b38f4f] text-white px-3 py-2 rounded-l-md shadow-lg z-50 transform -rotate-90 origin-bottom-right hover:bg-[#94723e] transition-colors"
+  style={{
+    transform: 'rotate(-90deg) scaleX(-1)', // This flips the text
+    writingMode: 'horizontal-tb',
+  }}
+>
+  <span style={{ transform: 'scaleX(-1)', display: 'inline-block' }}>
+    Schedule a Site Visit
+  </span>
+</button>
   );
 };
 
-export default SideContactButton; 
+export default SideContactButton;

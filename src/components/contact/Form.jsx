@@ -158,8 +158,8 @@ const Form = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-orange-600 text-white py-3 px-6 rounded-lg hover:bg-orange-700 transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-50"
-        >
+          className="w-full bg-[#b38f4f] text-white py-3 px-6 rounded-lg hover:bg-[#94723e] transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-50"
+          >
           {loading ? (
             <>
               <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">

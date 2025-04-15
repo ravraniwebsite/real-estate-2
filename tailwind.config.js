@@ -19,7 +19,7 @@ module.exports = {
         questrial: "Questrial",
       },
       colors: {
-        primary: "#FF6400",
+        primary: "#b38f4f",
         secondary: "#003049",
         secondaryOrange: "#FF8475",
         "main-bg": "#fff",

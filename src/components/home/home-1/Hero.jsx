@@ -25,19 +25,19 @@ const Hero = () => {
         <div className="mt-6 text-center flex-align-center gap-x-6">
           <div>
             <h1 className="text-2xl font-bold">
-              12k <span className="text-sm text-primary">+</span>
-            </h1>
-            <p>Requested Projects</p>
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold">
-              15k <span className="text-sm text-primary">+</span>
+              6 <span className="text-sm text-primary">+</span>
             </h1>
             <p>Projects Completed</p>
           </div>
           <div>
             <h1 className="text-2xl font-bold">
-              100 <span className="text-sm text-primary">+</span>
+              100 <span className="text-sm text-primary">%</span>
+            </h1>
+            <p> customer satisfaction</p>
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold">
+              1500 <span className="text-sm text-primary">+</span>
             </h1>
             <p>Served Clients</p>
           </div>
@@ -47,7 +47,7 @@ const Hero = () => {
 
 
       <div className="flex-1 basis-[20rem]">
-        <img src="/images/hero-4.png" alt="" className="w-full" />
+        <img src="./images2/rdlogot.png" alt="" className="w-full" />
       </div>
 
       

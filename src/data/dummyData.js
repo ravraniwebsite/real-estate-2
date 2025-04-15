@@ -678,11 +678,11 @@ export const projects = [
 ];
 
 export const brands = [
-  "/images/brands/airbnb.png",
-  "/images/brands/cisco.png",
-  "/images/brands/ebay.png",
-  "/images/brands/microsoft.png",
-  "/images/brands/uber.png",
+  "/images2/lehtlogo.png",
+  "/images2/rdlogot.png",
+  "/images2/hittlogo.png",
+  "/images2/bantlogo.png",
+  "/images2/altlogo.png",
 ];
 
 
