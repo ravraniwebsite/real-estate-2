@@ -19,7 +19,7 @@ const BrandVideo = () => {
         
         <div className="relative w-full mx-auto aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl">
           <iframe
-            src="https://www.youtube.com/embed/HJE25Ogzhw4"
+            src="https://res.cloudinary.com/deg3uu0iw/video/upload/v1744792862/agrmuxtqbbotqafoxzc2.mp4"
             title="Brand Promo Video"
             className="absolute inset-0 w-full h-full"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
