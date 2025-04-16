@@ -76,7 +76,7 @@ const Testimonials = ({ testimonials }) => {
               key={testimonial._id || index}
               className="bg-white dark:bg-gray-700 rounded-xl shadow-lg p-6 relative hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="absolute top-4 left-4 text-orange-500 opacity-20">
+              <div className="absolute top-4 left-4 text-[#b38f4f] opacity-20">
                 <FaQuoteLeft size={24} />
               </div>
               
@@ -114,7 +114,7 @@ const Testimonials = ({ testimonials }) => {
                     {testimonial.keywords.map((keyword, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 text-sm bg-orange-100 dark:bg-orange-900/20 text-orange-800 dark:text-orange-300 rounded-full"
+                        className="px-3 py-1 text-sm bg-[#d4b77d] dark:bg-[#94723e]/20 text-[#94723e] dark:text-[#d4b77d] rounded-full"
                       >
                         {keyword}
                       </span>

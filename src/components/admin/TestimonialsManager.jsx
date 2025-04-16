@@ -167,12 +167,12 @@ const TestimonialsManager = () => {
           
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Select Property
+              Select Venture
             </label>
             <select
               value={selectedProperty}
               onChange={(e) => setSelectedProperty(e.target.value)}
-              className="w-full p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-white"
+              className="w-full p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f] text-gray-900 dark:text-white"
               required
             >
               <option value="">Select a property</option>
@@ -194,7 +194,7 @@ const TestimonialsManager = () => {
                   type="text"
                   value={currentTestimonial.name}
                   onChange={(e) => setCurrentTestimonial(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-white"
+                  className="w-full p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f] text-gray-900 dark:text-white"
                   required
                 />
               </div>
@@ -207,7 +207,7 @@ const TestimonialsManager = () => {
                   type="text"
                   value={currentTestimonial.designation}
                   onChange={(e) => setCurrentTestimonial(prev => ({ ...prev, designation: e.target.value }))}
-                  className="w-full p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-white"
+                  className="w-full p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f] text-gray-900 dark:text-white"
                   placeholder="e.g. Business Owner, Real Estate Investor"
                 />
               </div>
@@ -219,7 +219,7 @@ const TestimonialsManager = () => {
                 <textarea
                   value={currentTestimonial.text}
                   onChange={(e) => setCurrentTestimonial(prev => ({ ...prev, text: e.target.value }))}
-                  className="w-full p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-white"
+                  className="w-full p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f] text-gray-900 dark:text-white"
                   rows="4"
                   required
                 />
@@ -233,7 +233,7 @@ const TestimonialsManager = () => {
                   type="url"
                   value={currentTestimonial.avatar}
                   onChange={(e) => setCurrentTestimonial(prev => ({ ...prev, avatar: e.target.value }))}
-                  className="w-full p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-white"
+                  className="w-full p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f] text-gray-900 dark:text-white"
                   placeholder="https://example.com/avatar.jpg"
                 />
               </div>
@@ -247,7 +247,7 @@ const TestimonialsManager = () => {
                     type="text"
                     value={currentKeyword}
                     onChange={(e) => setCurrentKeyword(e.target.value)}
-                    className="flex-1 p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-white"
+                    className="flex-1 p-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f] text-gray-900 dark:text-white"
                     placeholder="Add keyword"
                     onKeyPress={(e) => {
                       if (e.key === 'Enter') {
@@ -259,7 +259,7 @@ const TestimonialsManager = () => {
                   <button
                     type="button"
                     onClick={addKeyword}
-                    className="p-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700"
+                    className="p-3 bg-[#b38f4f] text-white rounded-lg hover:bg-[#94723e]"
                   >
                     <FaPlus />
                   </button>
@@ -268,13 +268,13 @@ const TestimonialsManager = () => {
                   {currentTestimonial.keywords.map((keyword, index) => (
                     <span
                       key={index}
-                      className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-orange-100 dark:bg-orange-900/20 text-orange-800 dark:text-orange-300"
+                      className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-[#d4b77d] dark:bg-[#94723e]/20 text-[#94723e] dark:text-[#d4b77d] rounded-full"
                     >
                       {keyword}
                       <button
                         type="button"
                         onClick={() => removeKeyword(index)}
-                        className="ml-2 text-orange-600 hover:text-orange-800"
+                        className="ml-2 text-[#b38f4f] hover:text-[#94723e]"
                       >
                         ×
                       </button>
@@ -286,7 +286,7 @@ const TestimonialsManager = () => {
               <div className="flex gap-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition-colors"
+                  className="flex-1 bg-[#b38f4f] text-white px-6 py-2 rounded-lg hover:bg-[#94723e] transition-colors"
                 >
                   {isEditing ? 'Update Testimonial' : 'Add Testimonial'}
                 </button>
@@ -338,7 +338,7 @@ const TestimonialsManager = () => {
                       <div className="flex space-x-2">
                         <button
                           onClick={() => handleEdit(testimonial)}
-                          className="p-2 text-orange-600 hover:text-orange-800"
+                          className="p-2 text-[#b38f4f] hover:text-[#94723e]"
                         >
                           <FaEdit />
                         </button>
@@ -356,7 +356,7 @@ const TestimonialsManager = () => {
                         {testimonial.keywords.map((keyword, idx) => (
                           <span
                             key={idx}
-                            className="px-3 py-1 text-sm bg-orange-100 dark:bg-orange-900/20 text-orange-800 dark:text-orange-300 rounded-full"
+                            className="px-3 py-1 text-sm bg-[#d4b77d] dark:bg-[#94723e]/20 text-[#94723e] dark:text-[#d4b77d] rounded-full"
                           >
                             {keyword}
                           </span>

@@ -15,7 +15,8 @@ const Hero = () => {
         </h1>
         <div className="pl-3 mt-5 border-l-4 border-primary">
           <p>
-          "Discover the joy of owning land in Hyderabad’s fastest-growing locales — craft your dream home from the ground up or step into a thoughtfully built villa, ready to welcome you."
+          Discover the joy of owning land in Hyderabad’s fastest-growing locales — craft your dream home from the ground up or step into a thoughtfully built villa, ready to welcome you.
+          
 
           </p>
         </div>

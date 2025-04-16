@@ -21,6 +21,7 @@ const SingleProductCardFullWidth = ({
   textLength,
   showLabels,
   parking_space,
+  banner_image,
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -31,7 +32,7 @@ const SingleProductCardFullWidth = ({
           <div className="group !opacity-100 overflow-hidden relative h-full">
             <Link to={`/venture?id=${_id}`} className="!opacity-100">
               <img
-                src={image[0]}
+                src={banner_image || image[0]}
                 alt={name}
                 className="object-cover w-full h-full group-hover:scale-125 transition-a"
               />

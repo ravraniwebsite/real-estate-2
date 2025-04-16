@@ -11,18 +11,16 @@ const AboutUs = () => {
             className="object-cover w-full h-full rounded-lg"
           />
           <img
-            src="/images/property (26).jpg"
+            src="/images2/aboutus2.png"
             alt=""
             className="absolute object-cover w-48 h-64 border-4 border-white rounded-lg sm:w-72 sm:h-80 dark:border-dark -bottom-20 -right-2 md:-right-20"
           />
         </div>
         <div className="relative flex-1 basis-[22rem]">
           <h1 className="sub-heading">about us</h1>
-          <h1 className="heading">we decorate your home environment</h1>
+          <h1 className="heading">custom homes for modern living</h1>
           <p className="mt-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo laborum
-            earum saepe quibusdam, temporibus aut sapiente, ea alias libero,
-            ipsam perferendis. Consectetur maiores, dicta.
+            At Ravrani Developers, we help you shape the home you’ve always dreamed of—whether it’s a cozy 2BHK, a spacious 3BHK villa, or a fully custom-designed residence. Our floor plans are tailored to meet your lifestyle, budget, and long-term goals.
           </p>
           <div className="mt-4">
             <div className="flex-align-center gap-x-2">
@@ -30,12 +28,11 @@ const AboutUs = () => {
                 <BiHomeAlt />
               </div>
               <div>
-                <h1 className="font-semibold capitalize">
-                  the perfect residency
-                </h1>
+                <h1 className="font-semibold capitalize">2BHK / 3BHK / Duplex</h1>
                 <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Saepe, quisquam?
+                  Compact & spacious plans  
+                  <br />Private gardens & balconies  
+                  <br />Ideal for families & working couples
                 </p>
               </div>
             </div>
@@ -45,12 +42,11 @@ const AboutUs = () => {
                 <BiGlobe />
               </div>
               <div>
-                <h1 className="font-semibold capitalize">
-                  global architect experts
-                </h1>
+                <h1 className="font-semibold capitalize">modern construction standards</h1>
                 <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Saepe, quisquam?
+                  RCC framed structure  
+                  <br />Vitrified tile flooring  
+                  <br />Vaastu-compliant layouts
                 </p>
               </div>
             </div>
@@ -60,12 +56,11 @@ const AboutUs = () => {
                 <BiCreditCard />
               </div>
               <div>
-                <h1 className="font-semibold capitalize">
-                  total payment transparency
-                </h1>
+                <h1 className="font-semibold capitalize">total payment transparency</h1>
                 <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Saepe, quisquam?
+                  Bank loan assistance  
+                  <br />Flexible EMI options  
+                  <br />Clear title & spot registration
                 </p>
               </div>
             </div>

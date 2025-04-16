@@ -170,12 +170,16 @@ const Admin2 = () => {
           `https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/delete-property`,
           {
             method: "DELETE",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify( { "id":id } )
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ "id": id })
           }
         );
-        if (response.ok) {
-          setProperties(properties.filter(property => property.id !== id));
+        const data = await response.json();
+        
+        if (data.success) {
+          // Update the properties state immediately
+          setProperties(properties.filter(property => property._id !== id));
+          alert("Property deleted successfully!");
         } else {
           alert("Failed to delete property. Please try again.");
         }
@@ -368,7 +372,7 @@ const Admin2 = () => {
                   name="username"
                   type="text"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-[#b38f4f] focus:border-[#b38f4f] focus:z-10 sm:text-sm"
                   placeholder="Username"
                   value={loginCredentials.username}
                   onChange={(e) => setLoginCredentials({ ...loginCredentials, username: e.target.value })}
@@ -381,7 +385,7 @@ const Admin2 = () => {
                   name="password"
                   type="password"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-orange-500 focus:border-orange-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-[#b38f4f] focus:border-[#b38f4f] focus:z-10 sm:text-sm"
                   placeholder="Password"
                   value={loginCredentials.password}
                   onChange={(e) => setLoginCredentials({ ...loginCredentials, password: e.target.value })}
@@ -392,7 +396,7 @@ const Admin2 = () => {
             <div>
               <button
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#b38f4f] hover:bg-[#94723e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#b38f4f]"
               >
                 Sign in
               </button>
@@ -410,13 +414,13 @@ const Admin2 = () => {
         <div className="flex justify-between items-center">
           <button
             onClick={toggleSidebar}
-            className="text-gray-400 hover:text-orange-500 focus:outline-none"
+            className="text-gray-400 hover:text-[#b38f4f] focus:outline-none"
           >
             {isSidebarOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
           <div className="flex items-center space-x-4">
             <span className="text-gray-300">Welcome, Admin</span>
-            <div className="w-8 h-8 rounded-full bg-orange-600 flex items-center justify-center text-white text-sm">
+            <div className="w-8 h-8 rounded-full bg-[#b38f4f] flex items-center justify-center text-white text-sm">
               A
             </div>
           </div>
@@ -438,8 +442,8 @@ const Admin2 = () => {
                 setActiveTab(tab.name);
                 setIsSidebarOpen(false);
               }}
-              className={`w-full flex items-center px-6 py-3 text-gray-400 hover:bg-gray-700 hover:text-orange-500 transition-colors ${
-                activeTab === tab.name ? "bg-gray-700 text-orange-500 border-r-4 border-orange-500" : ""
+              className={`w-full flex items-center px-6 py-3 text-gray-400 hover:bg-gray-700 hover:text-[#b38f4f] transition-colors ${
+                activeTab === tab.name ? "bg-gray-700 text-[#b38f4f] border-r-4 border-[#b38f4f]" : ""
               } ${!isSidebarOpen && 'md:justify-center md:px-2'}`}
             >
               <span className="mr-3">{tab.icon}</span>
@@ -459,7 +463,7 @@ const Admin2 = () => {
           {/* Toggle Button - Only visible on desktop */}
           <button
             onClick={toggleSidebar}
-            className="hidden md:flex w-full items-center justify-center px-4 py-2 text-gray-400 hover:text-orange-500 transition-colors bg-gray-700 rounded-lg"
+            className="hidden md:flex w-full items-center justify-center px-4 py-2 text-gray-400 hover:text-[#b38f4f] transition-colors bg-gray-700 rounded-lg"
           >
             {isSidebarOpen ? <FaChevronLeft /> : <FaChevronRight />}
           </button>
@@ -492,7 +496,7 @@ const Admin2 = () => {
           </h2>
           <div className="flex items-center space-x-4">
             <span className="text-gray-300">Welcome, Admin</span>
-            <div className="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center text-white">
+            <div className="w-10 h-10 rounded-full bg-[#b38f4f] flex items-center justify-center text-white">
               A
             </div>
           </div>
@@ -529,7 +533,7 @@ const Admin2 = () => {
                   <h3 className="text-lg font-semibold text-gray-100">Enquiries</h3>
                   <button
                     onClick={() => exportToCSV(enquiries, 'enquiries.csv')}
-                    className="flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors shadow-sm"
+                    className="flex items-center px-4 py-2 bg-[#b38f4f] text-white rounded-lg hover:bg-[#94723e] transition-colors shadow-sm"
                   >
                     <FaDownload className="mr-2" />
                     Export CSV
@@ -538,7 +542,7 @@ const Admin2 = () => {
                 <div className="overflow-x-auto rounded-lg">
                   {loading ? (
                     <div className="flex justify-center items-center py-8">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#b38f4f]"></div>
                     </div>
                   ) : enquiries.length === 0 ? (
                     <p className="text-center py-4 text-gray-400">No enquiries found.</p>
@@ -575,7 +579,7 @@ const Admin2 = () => {
                   <h3 className="text-lg font-semibold text-gray-100">Properties</h3>
                   <button
                     onClick={() => exportToCSV(properties, 'properties.csv')}
-                    className="flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors shadow-sm"
+                    className="flex items-center px-4 py-2 bg-[#b38f4f] text-white rounded-lg hover:bg-[#94723e] transition-colors shadow-sm"
                   >
                     <FaDownload className="mr-2" />
                     Export CSV
@@ -604,7 +608,7 @@ const Admin2 = () => {
                             </span>
                           </td>
                           <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm">
-                            <button className="text-orange-500 hover:text-orange-400 mr-3">
+                            <button className="text-[#b38f4f] hover:text-[#94723e] mr-3">
                               <FaEdit />
                             </button>
                             <button 
@@ -630,7 +634,7 @@ const Admin2 = () => {
                   <h2 className="text-xl font-semibold text-gray-100">Newsletter Subscribers</h2>
                   <button
                     onClick={() => exportToCSV(newsletters, 'newsletter_subscribers.csv')}
-                    className="flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors shadow-sm"
+                    className="flex items-center px-4 py-2 bg-[#b38f4f] text-white rounded-lg hover:bg-[#94723e] transition-colors shadow-sm"
                   >
                     <FaDownload className="mr-2" />
                     Export CSV
@@ -677,8 +681,19 @@ const Admin2 = () => {
                     />
                     <div className="absolute top-2 right-2 flex space-x-2">
                       <button
+                        onClick={() => {
+                          localStorage.setItem('propertyToEdit', JSON.stringify(property));
+                          setActiveTab("Data Upload");
+                        }}
+                        className="bg-blue-500/80 text-white p-2 rounded-full hover:bg-blue-600 transition-colors"
+                        title="Edit Property"
+                      >
+                        <FaEdit />
+                      </button>
+                      <button
                         onClick={() => handleDeleteProperty(property._id)}
                         className="bg-red-500/80 text-white p-2 rounded-full hover:bg-red-600 transition-colors"
+                        title="Delete Property"
                       >
                         <FaTrash />
                       </button>
@@ -687,7 +702,7 @@ const Admin2 = () => {
                   <div className="p-4">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{property.name}</h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">{property.distance}</p>
-                    <p className="text-orange-500 font-semibold mb-2">{property.price}</p>
+                    <p className="text-[#b38f4f] font-semibold mb-2">{property.price}</p>
                     <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                       <span className="mr-4">{property.number_of_beds} Beds</span>
                       <span className="mr-4">{property.number_of_bathrooms} Baths</span>
@@ -708,11 +723,38 @@ const Admin2 = () => {
                       </div>
                       <Link
                         to={`/venture?id=${property._id}`}
-                        className="text-orange-500 hover:text-orange-400 flex items-center"
+                        className="text-[#b38f4f] hover:text-[#94723e] flex items-center"
                       >
                         <span className="mr-1">View</span>
                         <FaChevronRight size={12} />
                       </Link>
+                    </div>
+                    <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+                      {property.createdAt ? (
+                        <>
+                          <span className="font-medium">Uploaded:</span>{' '}
+                          {new Date(property.createdAt).toLocaleString('en-IN', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true
+                          })}
+                        </>
+                      ) : (
+                        <>
+                          <span className="font-medium">Uploaded:</span>{' '}
+                          {new Date().toLocaleString('en-IN', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true
+                          })}
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -726,11 +768,11 @@ const Admin2 = () => {
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Manage FAQs</h2>
                   <select
-                    className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg px-4 py-2 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg px-4 py-2 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#b38f4f]"
                     value={selectedProperty}
                     onChange={(e) => setSelectedProperty(e.target.value)}
                   >
-                    <option value="">Select Property</option>
+                    <option value="">Select Venture</option>
                     {properties.map((property) => (
                       <option 
                         key={property._id} 
@@ -753,7 +795,7 @@ const Admin2 = () => {
                             type="text"
                             value={newFaq.question}
                             onChange={(e) => setNewFaq({ ...newFaq, question: e.target.value })}
-                            className="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            className="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b38f4f]"
                             placeholder="Enter FAQ question"
                           />
                         </div>
@@ -762,14 +804,14 @@ const Admin2 = () => {
                           <textarea
                             value={newFaq.answer}
                             onChange={(e) => setNewFaq({ ...newFaq, answer: e.target.value })}
-                            className="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            className="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b38f4f]"
                             rows="4"
                             placeholder="Enter FAQ answer"
                           ></textarea>
                         </div>
                         <button
                           onClick={handleAddFaq}
-                          className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition-colors"
+                          className="bg-[#b38f4f] text-white px-6 py-2 rounded-lg hover:bg-[#94723e] transition-colors"
                         >
                           Add FAQ
                         </button>

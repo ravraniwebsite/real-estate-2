@@ -16,7 +16,7 @@ const Stats = () => {
       <div className="flex flex-wrap gap-24 mt-8">
         <div className="relative flex-1 basis-[18rem]">
           <img
-            src="/images/property (16).jpg"
+            src="/images2/rdlogot - Copy.png"
             alt=""
             className="object-cover w-full h-full rounded-lg"
           />
@@ -27,7 +27,7 @@ const Stats = () => {
               </h1>
 
               <div>
-                <h1 className="text-2xl font-bold text-primary">15250+</h1>
+                <h1 className="text-2xl font-bold text-primary">1500+</h1>
                 <p>People Joined</p>
               </div>
             </div>

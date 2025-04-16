@@ -17,6 +17,7 @@ const SingleProductCard = ({
   image,
   basis,
   parking_space,
+  banner_image,
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -30,7 +31,7 @@ const SingleProductCard = ({
         <div className="group !opacity-100 overflow-hidden relative">
           <Link to={`/venture?id=${_id}`} className="!opacity-100">
             <img
-              src={image[0]}
+              src={banner_image || image[0]}
               alt={name}
               className="w-full h-fit md:h-[250px] object-cover group-hover:scale-125 transition-a"
             />

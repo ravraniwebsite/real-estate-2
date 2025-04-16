@@ -1,7 +1,10 @@
-import { useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaPlus, FaEdit, FaTrash, FaChevronRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const PropertyForm = () => {
+  // Check for existing property data in localStorage
+  const existingProperty = localStorage.getItem('propertyToEdit');
   const initialState = {
     name: "",
     distance: "",
@@ -28,16 +31,23 @@ const PropertyForm = () => {
   };
 
   // Update the global styles for dark mode
-  const inputStyle = "w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800";
-  const textareaStyle = "w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800";
-  const flexInputStyle = "flex-1 p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800";
+  const inputStyle = "w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f] transition-colors text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800";
+  const textareaStyle = "w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f] transition-colors text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800";
+  const flexInputStyle = "flex-1 p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f] transition-colors text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800";
 
-  const [property, setProperty] = useState(initialState);
+  const parsedExistingProperty = existingProperty ? JSON.parse(existingProperty) : null;
+  // Remove _id from existing property to ensure a new one is generated
+  if (parsedExistingProperty) {
+    delete parsedExistingProperty._id;
+  }
+
+  const [property, setProperty] = useState(parsedExistingProperty || initialState);
   const [currentLayout, setCurrentLayout] = useState({ img: "", name: "" });
   const [currentCompliance, setCurrentCompliance] = useState({ key: "", value: "" });
   const [uploading, setUploading] = useState(false);
   const [currentMoreDetail, setCurrentMoreDetail] = useState({ key: "", value: "" });
   const [currentFaq, setCurrentFaq] = useState({ question: "", answer: "" });
+  const [isEditing, setIsEditing] = useState(!!existingProperty);
   
   // Predefined features for dropdown
   const predefinedFeatures = [
@@ -49,6 +59,13 @@ const PropertyForm = () => {
     "Clubhouse",
     "Power Backup"
   ];
+
+  // Clear localStorage when component unmounts
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('propertyToEdit');
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -144,6 +161,27 @@ const PropertyForm = () => {
     setCurrentLayout(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleLayoutImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    setUploading(true);
+    try {
+      const uploadedUrl = await uploadToCloudinary(file);
+      if (uploadedUrl) {
+        setCurrentLayout(prev => ({
+          ...prev,
+          img: uploadedUrl
+        }));
+      }
+    } catch (error) {
+      console.error("Error uploading layout image:", error);
+      alert("Failed to upload layout image. Please try again.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const addCompliance = () => {
     if (currentCompliance.key && currentCompliance.value) {
       setProperty(prev => ({
@@ -207,6 +245,10 @@ const PropertyForm = () => {
     }
     
     try {
+      // Remove any existing _id to ensure a new one is generated
+      const propertyData = { ...property };
+      delete propertyData._id;
+
       const response = await fetch(
         "https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/add-property",
         {
@@ -214,7 +256,10 @@ const PropertyForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(property),
+          body: JSON.stringify({
+            ...propertyData,
+            createdAt: new Date().toISOString()
+          }),
         }
       );
       const data = await response.json();
@@ -222,6 +267,15 @@ const PropertyForm = () => {
       if (data.success) {
         alert("Property added successfully!");
         setProperty(initialState);
+        localStorage.removeItem('propertyToEdit');
+        setIsEditing(false);
+        
+        // Redirect to Showcase tab after successful save
+        if (window.location.pathname === '/admin') {
+          window.location.reload();
+        } else {
+          window.location.href = '/admin';
+        }
       } else {
         alert("Failed to add property. Please try again.");
       }
@@ -256,16 +310,20 @@ const PropertyForm = () => {
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Add New Property</h3>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Fill in the details below to add a new property listing</p>
+          <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+            {isEditing ? "Edit Property" : "Add New Property"}
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">
+            {isEditing ? "Update the property details below" : "Fill in the details below to add a new property listing"}
+          </p>
         </div>
         <button
           onClick={handleSubmit}
           disabled={uploading}
-          className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition-colors flex items-center shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-[#b38f4f] text-white px-6 py-3 rounded-lg hover:bg-[#94723e] transition-colors flex items-center shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <FaPlus className="mr-2" />
-          {uploading ? "Uploading..." : "Add Property"}
+          {uploading ? "Uploading..." : (isEditing ? "Save as New" : "Add Property")}
         </button>
       </div>
 
@@ -273,7 +331,7 @@ const PropertyForm = () => {
         {/* Basic Information Section */}
         <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
-            <span className="w-1 h-6 bg-orange-500 rounded-full mr-3"></span>
+            <span className="w-1 h-6 bg-[#b38f4f] rounded-full mr-3"></span>
             Basic Information
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -341,7 +399,7 @@ const PropertyForm = () => {
         {/* Category & Theme Section */}
         <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
-            <span className="w-1 h-6 bg-orange-500 rounded-full mr-3"></span>
+            <span className="w-1 h-6 bg-[#b38f4f] rounded-full mr-3"></span>
             Category & Theme
           </h4>
           <div className="space-y-6">
@@ -384,7 +442,7 @@ const PropertyForm = () => {
 
                 <div className="mt-6">
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Premium Logo</label>
-                  <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-orange-500 transition-colors">
+                  <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-[#b38f4f] transition-colors">
                     <div className="space-y-1 text-center">
                       <input
                         type="file"
@@ -416,7 +474,7 @@ const PropertyForm = () => {
                       />
                       <label
                         htmlFor="premium-logo"
-                        className="cursor-pointer bg-white rounded-md font-medium text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-orange-500"
+                        className="cursor-pointer bg-white rounded-md font-medium text-[#b38f4f] hover:text-[#94723e] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#b38f4f]"
                       >
                         <span>Upload logo</span>
                         <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
@@ -496,7 +554,7 @@ const PropertyForm = () => {
         {/* Property Details Section */}
         <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
-            <span className="w-1 h-6 bg-orange-500 rounded-full mr-3"></span>
+            <span className="w-1 h-6 bg-[#b38f4f] rounded-full mr-3"></span>
             Property Details
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -542,13 +600,13 @@ const PropertyForm = () => {
         {/* Media Section */}
         <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
-            <span className="w-1 h-6 bg-orange-500 rounded-full mr-3"></span>
+            <span className="w-1 h-6 bg-[#b38f4f] rounded-full mr-3"></span>
             Media
           </h4>
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Banner Image</label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-orange-500 transition-colors">
+              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-[#b38f4f] transition-colors">
                 <div className="space-y-1 text-center">
                   <input
                     type="file"
@@ -561,7 +619,7 @@ const PropertyForm = () => {
                   />
                   <label
                     htmlFor="banner-upload"
-                    className="cursor-pointer bg-white rounded-md font-medium text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-orange-500"
+                    className="cursor-pointer bg-white rounded-md font-medium text-[#b38f4f] hover:text-[#94723e] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#b38f4f]"
                   >
                     <span>Upload a file</span>
                     <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
@@ -581,7 +639,7 @@ const PropertyForm = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Property Images</label>
-              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-orange-500 transition-colors">
+              <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-[#b38f4f] transition-colors">
                 <div className="space-y-1 text-center">
                   <input
                     type="file"
@@ -594,7 +652,7 @@ const PropertyForm = () => {
                   />
                   <label
                     htmlFor="property-images"
-                    className="cursor-pointer bg-white rounded-md font-medium text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-orange-500"
+                    className="cursor-pointer bg-white rounded-md font-medium text-[#b38f4f] hover:text-[#94723e] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#b38f4f]"
                   >
                     <span>Upload multiple files</span>
                     <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
@@ -611,13 +669,16 @@ const PropertyForm = () => {
                           alt={`Property ${index}`}
                           className="w-full h-32 object-cover rounded-lg shadow-sm" 
                         />
-                        <button
-                          type="button"
-                          onClick={() => removeImage(index)}
-                          className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          ×
-                        </button>
+                        <div className="absolute top-2 right-2 flex space-x-2">
+                          <button
+                            type="button"
+                            onClick={() => removeImage(index)}
+                            className="bg-red-500/80 text-white p-2 rounded-full hover:bg-red-600 transition-colors"
+                            title="Delete Image"
+                          >
+                            <FaTrash size={16} />
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -654,7 +715,7 @@ const PropertyForm = () => {
         {/* Features Section */}
         <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
-            <span className="w-1 h-6 bg-orange-500 rounded-full mr-3"></span>
+            <span className="w-1 h-6 bg-[#b38f4f] rounded-full mr-3"></span>
             Features & Amenities
           </h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -665,13 +726,13 @@ const PropertyForm = () => {
                 onClick={() => handleFeatureToggle(feature)}
                 className={`p-4 rounded-lg border-2 transition-all flex items-center justify-between ${
                   property.features.includes(feature)
-                    ? 'border-orange-500 bg-orange-50'
-                    : 'border-gray-200 hover:border-orange-300'
+                    ? 'border-[#b38f4f] bg-[#b38f4f] text-white'
+                    : 'border-gray-200 hover:border-[#b38f4f]'
                 }`}
               >
                 <span className="font-medium">{feature}</span>
                 {property.features.includes(feature) ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#b38f4f]" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 ) : (
@@ -687,7 +748,7 @@ const PropertyForm = () => {
         {/* More Details Section */}
         <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
-            <span className="w-1 h-6 bg-orange-500 rounded-full mr-3"></span>
+            <span className="w-1 h-6 bg-[#b38f4f] rounded-full mr-3"></span>
             Additional Details
           </h4>
           <div className="space-y-6">
@@ -711,7 +772,7 @@ const PropertyForm = () => {
               <button
                 type="button"
                 onClick={addMoreDetail}
-                className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition-colors shadow-md hover:shadow-lg"
+                className="bg-[#b38f4f] text-white px-6 py-3 rounded-lg hover:bg-[#94723e] transition-colors shadow-md hover:shadow-lg"
               >
                 Add Detail
               </button>
@@ -741,19 +802,51 @@ const PropertyForm = () => {
         {/* Layouts Section */}
         <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
-            <span className="w-1 h-6 bg-orange-500 rounded-full mr-3"></span>
+            <span className="w-1 h-6 bg-[#b38f4f] rounded-full mr-3"></span>
             Floor Plans & Layouts
           </h4>
           <div className="space-y-6">
             <div className="flex space-x-4">
-              <input
-                type="text"
-                name="img"
-                value={currentLayout.img}
-                onChange={handleLayoutChange}
-                placeholder="Image URL"
-                className={flexInputStyle}
-              />
+              <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Layout Image</label>
+                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-[#b38f4f] transition-colors">
+                  <div className="space-y-1 text-center">
+                    <input
+                      type="file"
+                      onChange={handleLayoutImageUpload}
+                      className="hidden"
+                      id="layout-upload"
+                      accept="image/*"
+                      disabled={uploading}
+                    />
+                    <label
+                      htmlFor="layout-upload"
+                      className="cursor-pointer bg-white rounded-md font-medium text-[#b38f4f] hover:text-[#94723e] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#b38f4f]"
+                    >
+                      <span>Upload layout image</span>
+                      <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                    </label>
+                  </div>
+                </div>
+                {currentLayout.img && (
+                  <div className="mt-4">
+                    <div className="relative group">
+                      <img 
+                        src={currentLayout.img} 
+                        alt="Layout preview" 
+                        className="h-32 object-contain rounded-lg"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setCurrentLayout(prev => ({ ...prev, img: '' }))}
+                        className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
               <input
                 type="text"
                 name="name"
@@ -765,7 +858,7 @@ const PropertyForm = () => {
               <button
                 type="button"
                 onClick={addLayout}
-                className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition-colors shadow-md hover:shadow-lg"
+                className="bg-[#b38f4f] text-white px-6 py-3 rounded-lg hover:bg-[#94723e] transition-colors shadow-md hover:shadow-lg"
               >
                 Add Layout
               </button>
@@ -775,15 +868,22 @@ const PropertyForm = () => {
                 <h5 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Added Layouts:</h5>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {property.layouts.map((layout, index) => (
-                    <div key={index} className="flex justify-between items-center bg-white dark:bg-gray-700 p-3 rounded-lg shadow-sm">
-                      <span className="text-sm">{layout.name}</span>
-                      <button
-                        type="button"
-                        onClick={() => removeLayout(index)}
-                        className="text-red-500 hover:text-red-700 dark:hover:text-red-400 transition-colors"
-                      >
-                        Remove
-                      </button>
+                    <div key={index} className="flex flex-col bg-white dark:bg-gray-700 p-3 rounded-lg shadow-sm">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm font-medium">{layout.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => removeLayout(index)}
+                          className="text-red-500 hover:text-red-700 dark:hover:text-red-400 transition-colors"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                      <img 
+                        src={layout.img} 
+                        alt={layout.name}
+                        className="w-full h-32 object-contain rounded-lg"
+                      />
                     </div>
                   ))}
                 </div>
@@ -795,7 +895,7 @@ const PropertyForm = () => {
         {/* Legal Compliance Section */}
         <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
-            <span className="w-1 h-6 bg-orange-500 rounded-full mr-3"></span>
+            <span className="w-1 h-6 bg-[#b38f4f] rounded-full mr-3"></span>
             Legal Compliance
           </h4>
           <div className="space-y-6">
@@ -819,7 +919,7 @@ const PropertyForm = () => {
               <button
                 type="button"
                 onClick={addCompliance}
-                className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition-colors shadow-md hover:shadow-lg"
+                className="bg-[#b38f4f] text-white px-6 py-3 rounded-lg hover:bg-[#94723e] transition-colors shadow-md hover:shadow-lg"
               >
                 Add
               </button>
@@ -849,7 +949,7 @@ const PropertyForm = () => {
         {/* FAQ Section */}
         <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
           <h4 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
-            <span className="w-1 h-6 bg-orange-500 rounded-full mr-3"></span>
+            <span className="w-1 h-6 bg-[#b38f4f] rounded-full mr-3"></span>
             FAQs
           </h4>
           <div className="space-y-6">
@@ -873,7 +973,7 @@ const PropertyForm = () => {
               <button
                 type="button"
                 onClick={addFaq}
-                className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition-colors shadow-md hover:shadow-lg"
+                className="bg-[#b38f4f] text-white px-6 py-3 rounded-lg hover:bg-[#94723e] transition-colors shadow-md hover:shadow-lg"
               >
                 Add FAQ
               </button>

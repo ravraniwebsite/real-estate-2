@@ -91,7 +91,7 @@ const Form = () => {
             onChange={handleChange}
             required
             placeholder="Your Name"
-            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f]"
           />
         </div>
 
@@ -106,7 +106,7 @@ const Form = () => {
             onChange={handleChange}
             required
             placeholder="Email Address"
-            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f]"
           />
         </div>
 
@@ -121,7 +121,7 @@ const Form = () => {
             onChange={handleChange}
             required
             placeholder="Phone Number"
-            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f]"
           />
         </div>
 
@@ -136,7 +136,7 @@ const Form = () => {
             onChange={handleChange}
             required
             placeholder="Property of Interest"
-            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f]"
           />
         </div>
 
@@ -151,7 +151,7 @@ const Form = () => {
             required
             placeholder="Your Message"
             rows="4"
-            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#b38f4f] focus:border-[#b38f4f]"
           ></textarea>
         </div>
 

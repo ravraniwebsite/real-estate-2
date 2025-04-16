@@ -16,28 +16,54 @@ const Footer = () => {
             <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
               {/* Company Info */}
               <div>
-                <Link to="/" className="flex items-center gap-x-1">
-                  <BiBuildingHouse className="text-3xl text-primary" />
-                  <h1 className="hidden md:block">Ravrani Developers</h1>
-                </Link>
-                <p className="mt-4 text-sm text-muted">
-                  Premium residential plotting ventures in Hyderabad's fastest-growing locations. Buy a plot, build a custom home, or move into a ready-built villa — we make your property dreams come true.
-                </p>
-                <div className="gap-4 my-6 flex">
-                  <div className="icon-box bg-dark-light hover:bg-hover-color-dark">
-                    <FiFacebook />
-                  </div>
-                  <div className="icon-box bg-dark-light hover:bg-hover-color-dark">
-                    <FaTwitter />
-                  </div>
-                  <div className="icon-box bg-dark-light hover:bg-hover-color-dark">
-                    <FaInstagram />
-                  </div>
-                  <div className="icon-box bg-dark-light hover:bg-hover-color-dark">
-                    <FaWhatsapp />
-                  </div>
-                </div>
-              </div>
+  <Link to="/" className="flex items-center gap-x-1">
+    <BiBuildingHouse className="text-3xl text-primary" />
+    <h1 className="hidden md:block">Ravrani Developers</h1>
+  </Link>
+  <p className="mt-4 text-sm text-muted">
+    Premium residential plotting ventures in Hyderabad's fastest-growing locations. Buy a plot, build a custom home, or move into a ready-built villa — we make your property dreams come true.
+  </p>
+
+  <div className="gap-4 my-6 flex">
+    <a
+      href="https://www.facebook.com/p/Ravrani-Developers-100063754191651/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="icon-box bg-dark-light hover:bg-hover-color-dark"
+    >
+      <FiFacebook />
+    </a>
+
+    <a
+      href="https://twitter.com/Ravrani-Developers"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="icon-box bg-dark-light hover:bg-hover-color-dark"
+    >
+      <FaTwitter />
+    </a>
+
+    <a
+      href="https://www.instagram.com/ravrani_developers/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="icon-box bg-dark-light hover:bg-hover-color-dark"
+    >
+      <FaInstagram />
+    </a>
+
+    <a
+      href="https://wa.me/919177761786?text=Hello%20i%20would%20like%20to%20know%20more%20about%20your%20ventures
+"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="icon-box bg-dark-light hover:bg-hover-color-dark"
+    >
+      <FaWhatsapp />
+    </a>
+  </div>
+</div>
+
 
               {/* Quick Links Section */}
               <div className="grid grid-cols-2 gap-8">
@@ -79,14 +105,12 @@ const Footer = () => {
                   <div className="space-y-4">
                     <div>
                       <p className="text-muted">
-                        Ravrani Developers<br />
-                        Hyderabad, Telangana<br />
-                        India
+                      MG96+6FH, Sanjay Nagar, Adilabad, Bhattisavargaon, Telangana 504001
                       </p>
                     </div>
                     <div>
                       <p className="text-muted">
-                        <a href="tel:0123456789" className="hover:text-primary">Ph: 0123456789</a>
+                        <a href="tel:+91 777 61786" className="hover:text-primary">Phone: +91777 61786</a>
                       </p>
                       <p className="text-muted">
                         <a href="mailto:info@ravranidevelopers.com" className="hover:text-primary">Email: info@ravranidevelopers.com</a>
@@ -121,7 +145,7 @@ const Footer = () => {
       {/* Copyright Section */}
       <div className="py-2 mt-8 text-center border-t text-muted border-dark">
         <p>
-          © 2025 <span className="text-primary">Ravrani Developers</span> | All Rights Reserved
+          © 2025 <span className="text-primary">Ravrani Developers</span> | TS Rera
         </p>
       </div>
     </div>

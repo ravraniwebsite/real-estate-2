@@ -678,11 +678,11 @@ export const projects = [
 ];
 
 export const brands = [
-  "/images2/lehtlogo.png",
+  "/images2/leh valley logo.jpg",
+  "/images2/aura valley logo.jpg",
   "/images2/rdlogot.png",
-  "/images2/hittlogo.png",
-  "/images2/bantlogo.png",
-  "/images2/altlogo.png",
+  "/images2/hitech city logo.jpg",
+  "/images2/al qudus logo.jpg",
 ];
 
 
@@ -711,40 +711,32 @@ export const focus = [
 export const categories = [
   {
     id: 1,
-    name: "Apartments",
-    number: 20,
-    image: "/images/property (17).jpg",
+    name: "Hitech City – Shadnagar",
+    image: "/images2/aboutus2.png",
   },
   {
     id: 2,
-    name: "Offices",
-    number: 23,
-    image: "/images/property (1).jpeg",
+    name: "Al-Qudus – Kadthal",
+    image: "/images2/a4.jpg",
   },
+ 
+ 
   {
-    id: 3,
-    name: "Townhouse",
-    number: 36,
-    image: "/images/property (21).jpg",
+    id: 5,
+    name: "Leh Valley – Kadthal",
+    image: "/images2/leh.png",
   },
   {
     id: 4,
-    name: "living room",
-    number: 12,
-    image: "/images/property (1).jpg",
+    name: "Aura Valley – Kadthal (Near RRR)",
+    image: "/images/property (19).jpg",
   },
   {
-    id: 5,
-    name: "Real estates",
-    number: 36,
-    image: "/images/property (20).jpg",
+    id: 3,
+    name: "Banjara Hills – Kadthal",
+    image: "/images2/banjara.jpg",
   },
-  {
-    id: 6,
-    name: "Condors",
-    number: 14,
-    image: "/images/property (18).jpg",
-  },
+ 
 ];
 
 export const propertyTypes = [

@@ -40,7 +40,7 @@ const Filters = () => {
       <div className="grid grid-cols-1 md:grid-cols-[1.5fr,2.5fr,auto] gap-4 bg-white dark:bg-[#1e1e2d] p-6 rounded-xl shadow-lg">
         {/* Property Selection */}
         <div className="w-full p-3 rounded-lg bg-gray-50 dark:bg-[#2c2c3d] border border-gray-200 dark:border-gray-700">
-          <h1 className="font-medium text-gray-700 dark:text-gray-300 mb-1">Select Property</h1>
+          <h1 className="font-medium text-gray-700 dark:text-gray-300 mb-1">Select Venture</h1>
           <div className="flex items-center gap-x-2">
             <BiBuildings className="text-gray-500 dark:text-gray-400" />
             <select
@@ -48,7 +48,7 @@ const Filters = () => {
               value={selectedProperty?._id || ""}
               className="w-full bg-transparent border-0 outline-none text-gray-600 dark:text-gray-200 cursor-pointer"
             >
-              <option value="" className="bg-white dark:bg-[#2c2c3d]">Select a property</option>
+              <option value="" className="bg-white dark:bg-[#2c2c3d]">Select a Venture</option>
               {properties.map((property) => (
                 <option 
                   key={property._id} 
@@ -79,7 +79,6 @@ const Filters = () => {
           <div className="w-full p-3 rounded-lg bg-gray-50 dark:bg-[#2c2c3d] border border-gray-200 dark:border-gray-700">
             <h1 className="font-medium text-gray-700 dark:text-gray-300 mb-1">Contact Us</h1>
             <div className="flex items-center gap-x-2">
-              <BiDownload className="text-gray-500 dark:text-gray-400 flex-shrink-0" />
               {selectedProperty ? (
                 <button
                   onClick={() => setIsPopupOpen(true)}
@@ -88,7 +87,7 @@ const Filters = () => {
                   More Details
                 </button>
               ) : (
-                <p className="text-gray-600 dark:text-gray-200">Select a property</p>
+                <p className="text-gray-600 dark:text-gray-200">Select a Venture</p>
               )}
             </div>
           </div>
@@ -108,7 +107,7 @@ const Filters = () => {
                   Download PDF
                 </a>
               ) : (
-                <p className="text-gray-600 dark:text-gray-200">Select a property</p>
+                <p className="text-gray-600 dark:text-gray-200">Select a Venture</p>
               )}
             </div>
           </div>
@@ -118,8 +117,10 @@ const Filters = () => {
         <button 
           onClick={handleSearch}
           disabled={!selectedProperty}
-          className="h-full px-6 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center whitespace-nowrap font-medium"
-        >
+          className="h-full px-6 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center whitespace-nowrap font-medium"
+          style={{ backgroundColor: '#b38f4f' }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#a07f44'}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#b38f4f'}        >
           View Property
         </button>
       </div>

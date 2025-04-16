@@ -17,7 +17,7 @@ const Brands = () => {
             <img
               src={image}
               alt=""
-              className="w-20 group-hover:scale-125 transition-a"
+              className="w-40 group-hover:scale-125 transition-a"
             />
           </div>
         ))}

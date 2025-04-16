@@ -354,7 +354,7 @@ export const PremiumTemplate = ({ venture, theme }) => {
                         <img
                           src={layout.img}
                           alt={layout.name}
-                          className="w-full h-64 object-cover transition-transform duration-700 hover:scale-110"
+                          className="w-full h-64 object-contain transition-transform duration-700 hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
                       </div>
@@ -423,16 +423,35 @@ export const PremiumTemplate = ({ venture, theme }) => {
 
             {/* Enhanced Legal Compliance */}
             {venture.legal_compliance && venture.legal_compliance.length > 0 && (
-              <div className="bg-white dark:bg-gray-800 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-gray-200/30 dark:border-gray-700/30">
+              <div className="bg-white/10 dark:bg-black/30 backdrop-blur-xl rounded-2xl p-6 md:p-8 text-gray-800 dark:text-white border border-gray-200/30 dark:border-gray-700/30">
                 <h2 className="text-3xl font-bold mb-8 relative pb-3 text-gray-900 dark:text-white">
                   Legal Compliance
                   <span className="absolute bottom-0 left-0 w-24 h-1 rounded-full" style={{ backgroundColor: theme.primaryColor }}></span>
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <div className="grid grid-cols-1 gap-4">
                   {venture.legal_compliance.map((item, index) => (
-                    <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-xl border border-gray-200 dark:border-gray-600">
-                      <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{item.key}</h3>
-                      <p className="text-gray-700 dark:text-gray-200">{item.value}</p>
+                    <div key={index} className="flex items-start space-x-4 p-4 rounded-lg hover:bg-white/5 transition-colors duration-300">
+                      <div className="flex-shrink-0">
+                        <svg
+                          className="w-6 h-6"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          style={{ color: theme.primaryColor }}
+                        >
+                          <path
+                            d="M20 6L9 17L4 12"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{item.key}</h3>
+                        <p className="text-gray-700 dark:text-gray-200 mt-1">{item.value}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -441,16 +460,35 @@ export const PremiumTemplate = ({ venture, theme }) => {
 
             {/* Enhanced More Details */}
             {venture.more_details && venture.more_details.length > 0 && (
-              <div className="bg-white dark:bg-gray-800 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-gray-200/30 dark:border-gray-700/30">
+              <div className="bg-white/10 dark:bg-black/30 backdrop-blur-xl rounded-2xl p-6 md:p-8 text-gray-800 dark:text-white border border-gray-200/30 dark:border-gray-700/30">
                 <h2 className="text-3xl font-bold mb-8 relative pb-3 text-gray-900 dark:text-white">
                   Additional Details
                   <span className="absolute bottom-0 left-0 w-24 h-1 rounded-full" style={{ backgroundColor: theme.primaryColor }}></span>
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <div className="grid grid-cols-1 gap-4">
                   {venture.more_details.map((detail, index) => (
-                    <div key={index} className="bg-white dark:bg-gray-700 p-6 rounded-xl border border-gray-200 dark:border-gray-600">
-                      <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{detail.key}</h3>
-                      <p className="text-gray-700 dark:text-gray-200">{detail.value}</p>
+                    <div key={index} className="flex items-start space-x-4 p-4 rounded-lg hover:bg-white/5 transition-colors duration-300">
+                      <div className="flex-shrink-0">
+                        <svg
+                          className="w-6 h-6"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          style={{ color: theme.primaryColor }}
+                        >
+                          <path
+                            d="M20 6L9 17L4 12"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{detail.key}</h3>
+                        <p className="text-gray-700 dark:text-gray-200 mt-1">{detail.value}</p>
+                      </div>
                     </div>
                   ))}
                 </div>

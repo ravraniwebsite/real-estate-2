@@ -93,7 +93,7 @@ const ContactPopupForm = ({ isOpen, onClose, propertyName }) => {
                 type="text"
                 placeholder="Your Name"
                 required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] dark:bg-gray-700 dark:text-white"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
@@ -103,7 +103,7 @@ const ContactPopupForm = ({ isOpen, onClose, propertyName }) => {
                 type="email"
                 placeholder="Your Email"
                 required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] dark:bg-gray-700 dark:text-white"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               />
@@ -113,7 +113,7 @@ const ContactPopupForm = ({ isOpen, onClose, propertyName }) => {
                 type="tel"
                 placeholder="Your Phone"
                 required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] dark:bg-gray-700 dark:text-white"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               />
@@ -122,7 +122,7 @@ const ContactPopupForm = ({ isOpen, onClose, propertyName }) => {
               <textarea
                 placeholder="Your Message"
                 rows="4"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#b38f4f] dark:bg-gray-700 dark:text-white"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               ></textarea>
@@ -130,7 +130,7 @@ const ContactPopupForm = ({ isOpen, onClose, propertyName }) => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-orange-600 text-white py-3 px-6 rounded-lg hover:bg-orange-700 transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-50"
+              className="w-full bg-[#b38f4f] text-white py-3 px-6 rounded-lg hover:bg-[#94723e] transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-50"
             >
               {loading ? (
                 <>
