@@ -5,7 +5,7 @@ const Projects = () => {
   const [projects , setProperties ] = useState([])
   
     async function getData(){
-      let data = await fetch("https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/get-properties");
+      let data = await fetch(`${process.env.REACT_APP_SERVER_URL}/get-properties`);
       data = await data.json();
       console.log(data);
       
