@@ -31,7 +31,7 @@ const TestimonialsManager = () => {
   const fetchProperties = async () => {
     try {
       const response = await fetch(
-        "https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/get-properties"
+        `${process.env.REACT_APP_SERVER_URL}/get-properties`
       );
       const data = await response.json();
       if (data.success) {
@@ -45,7 +45,7 @@ const TestimonialsManager = () => {
   const fetchTestimonials = async () => {
     try {
       const response = await fetch(
-        `https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/get-testimonials/${selectedProperty}`
+        `${process.env.REACT_APP_SERVER_URL}/get-testimonials/${selectedProperty}`
       );
       const data = await response.json();
       if (data.success) {
@@ -66,7 +66,7 @@ const TestimonialsManager = () => {
 
     try {
       const response = await fetch(
-        `https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/add-testimonial/${selectedProperty}`,
+        `${process.env.REACT_APP_SERVER_URL}/add-testimonial/${selectedProperty}`,
         {
           method: "POST",
           headers: {
@@ -96,7 +96,7 @@ const TestimonialsManager = () => {
 
     try {
       const response = await fetch(
-        `https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/delete-testimonial/${selectedProperty}/${testimonialId}`,
+        `${process.env.REACT_APP_SERVER_URL}/delete-testimonial/${selectedProperty}/${testimonialId}`,
         {
           method: "DELETE",
         }

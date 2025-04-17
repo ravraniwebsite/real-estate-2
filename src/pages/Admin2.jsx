@@ -78,7 +78,7 @@ const Admin2 = () => {
       try {
         // Fetch enquiries
         const enquiriesResponse = await fetch(
-          "https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/get-enquires"
+          `${process.env.REACT_APP_SERVER_URL}/get-enquires`
         );
         const enquiriesData = await enquiriesResponse.json();
         if (enquiriesData.success) {
@@ -87,7 +87,7 @@ const Admin2 = () => {
 
         // Fetch properties
         const propertiesResponse = await fetch(
-          "https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/get-properties"
+          `${process.env.REACT_APP_SERVER_URL}/get-properties`
         );
         const propertiesData = await propertiesResponse.json();
         if (propertiesData.success) {
@@ -96,7 +96,7 @@ const Admin2 = () => {
 
         // Fetch newsletters
         const newslettersResponse = await fetch(
-          "https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/get-newsletters"
+          `${process.env.REACT_APP_SERVER_URL}/get-newsletters`
         );
         const newslettersData = await newslettersResponse.json();
         if (newslettersData.success) {
@@ -124,7 +124,7 @@ const Admin2 = () => {
     if (window.confirm("Are you sure you want to delete this enquiry?")) {
       try {
         const response = await fetch(
-          `https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/delete-enquiry/${id}`,
+          `${process.env.REACT_APP_SERVER_URL}/delete-enquiry/${id}`,
           {
             method: "DELETE",
           }
@@ -146,7 +146,7 @@ const Admin2 = () => {
     if (window.confirm("Are you sure you want to delete this newsletter subscription?")) {
       try {
         const response = await fetch(
-         ` https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/delete-newsletter/${id}`,
+         `${process.env.REACT_APP_SERVER_URL}/delete-newsletter/${id}`,
           {
             method: "DELETE",
           }
@@ -167,7 +167,7 @@ const Admin2 = () => {
     if (window.confirm("Are you sure you want to delete this property?")) {
       try {
         const response = await fetch(
-          `https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/delete-property`,
+          `${process.env.REACT_APP_SERVER_URL}/delete-property`,
           {
             method: "DELETE",
             headers: {"Content-Type": "application/json"},
@@ -274,7 +274,7 @@ const Admin2 = () => {
       const updatedFaqs = [...(property.faqs || []), newFaq];
       
       const response = await fetch(
-        `https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/update-property`,
+        `${process.env.REACT_APP_SERVER_URL}/update-property`,
         {
           method: 'PUT',
           headers: {
@@ -322,7 +322,7 @@ const Admin2 = () => {
       const updatedFaqs = (property.faqs || []).filter((_, i) => i !== index);
       
       const response = await fetch(
-        `https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/update-property`,
+        `${process.env.REACT_APP_SERVER_URL}/update-property`,
         {
           method: 'PUT',
           headers: {

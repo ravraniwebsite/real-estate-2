@@ -61,11 +61,11 @@ export default function PropertyForm() {
   
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "realestate"); // Replace with your actual Cloudinary preset
-  
+      formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET); // Replace with your actual Cloudinary preset
+    
       try 
       {
-          const response = await fetch("https://api.cloudinary.com/v1_1/dxvjbmgta/image/upload", {
+          const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`, {
               method: "POST",
               body: formData
           });
@@ -103,7 +103,7 @@ export default function PropertyForm() {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
 
-    let response = await fetch("https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/add-property" , {
+    let response = await fetch(`${process.env.REACT_APP_SERVER_URL}/add-property` , {
       headers:{"Content-Type":"application/json"},
       method:"POST",
       body:JSON.stringify( formData )

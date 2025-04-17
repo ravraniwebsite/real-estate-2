@@ -31,7 +31,7 @@ const NewsLetter = () => {
 
     try {
       const response = await fetch(
-        "https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/enquire",
+        `${process.env.REACT_APP_SERVER_URL}/enquire`,
         {
           method: "POST",
           headers: {
