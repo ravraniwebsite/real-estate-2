@@ -76,11 +76,11 @@ const PropertyForm = () => {
   const uploadToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'realestate');
+    formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET); 
 
     try {
       const response = await fetch(
-        'https://api.cloudinary.com/v1_1/dxvjbmgta/image/upload',
+        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
         {
           method: 'POST',
           body: formData,
@@ -250,7 +250,7 @@ const PropertyForm = () => {
       delete propertyData._id;
 
       const response = await fetch(
-        "https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/add-property",
+        `${process.env.REACT_APP_SERVER_URL}/add-property`,
         {
           method: "POST",
           headers: {

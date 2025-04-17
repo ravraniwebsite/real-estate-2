@@ -76,7 +76,7 @@ const PropertyDetailPage = () => {
           return;
         }
   
-        const response = await fetch(`https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/get-properties?id=${id}`);
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/get-properties?id=${id}`);
         const data = await response.json();
         
         console.log("API Response:", data);
