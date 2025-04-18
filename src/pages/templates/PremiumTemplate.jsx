@@ -1,4 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { MdHolidayVillage } from "react-icons/md";
+import { GiPlot } from "react-icons/gi";
+import { FaHome } from "react-icons/fa";
+import { MdMap } from "react-icons/md"; // map-style icon
+
+
+
 import {
   FaMapMarkerAlt,
   FaDownload,
@@ -8,6 +15,8 @@ import {
   FaBath,
   FaParking,
   FaSwimmingPool,
+  MdApartment,
+  GiDuplexHouse,
   FaDumbbell,
   FaShieldAlt,
   FaTree,
@@ -95,17 +104,41 @@ export const PremiumTemplate = ({ venture, theme }) => {
                   <span className="font-light tracking-wide">{venture.distance}</span>
                 </div>
                 <div className="flex flex-wrap gap-4 md:gap-8 text-lg md:text-xl text-shadow-md">
-                  <div className="flex items-center bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
-                    <FaBed className="mr-3 text-white/90" />
-                    <span className="font-light">{venture.number_of_beds} Bedrooms</span>
+                  <div 
+                    className="flex items-center rounded-full px-4 py-2 transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                    style={{
+                      backgroundColor: theme.primaryColor,
+                      color: theme.textColor,
+                    }}
+                  >
+                  <div className="icon-box !w-7 !h-7 bg-primary/20 text-white">
+                       <MdMap />
+                </div>
+                    <span className="font-medium">Plot's</span>
                   </div>
-                  <div className="flex items-center bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
-                    <FaBath className="mr-3 text-white/90" />
-                    <span className="font-light">{venture.number_of_bathrooms} Bathrooms</span>
+                  <div 
+                    className="flex items-center rounded-full px-4 py-2 transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                    style={{
+                      backgroundColor: theme.primaryColor,
+                      color: theme.textColor,
+                    }}
+                  >
+                    <div className="icon-box !w-7 !h-7 bg-primary/20 text-white">
+                       <FaHome />
+                </div>
+                    <span className="font-medium">2BHK/3BHK</span>
                   </div>
-                  <div className="flex items-center bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
-                    <FaParking className="mr-3 text-white/90" />
-                    <span className="font-light">{venture.parking_space} Parking</span>
+                  <div 
+                    className="flex items-center rounded-full px-4 py-2 transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                    style={{
+                      backgroundColor: theme.primaryColor,
+                      color: theme.textColor,
+                    }}
+                  >
+                    <div className="icon-box !w-7 !h-7 bg-primary/20 text-white">
+                       <MdHolidayVillage />
+                </div>
+                    <span className="font-medium">DUPLEX VILLAS</span>
                   </div>
                 </div>
               </div>

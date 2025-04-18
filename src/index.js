@@ -6,6 +6,10 @@ import App from "./App";
 import { Provider } from "react-redux";
 import store from "./app/store";
 import { AnimatePresence } from "framer-motion";
+import { initEmailJS } from "./utils/emailService";
+
+// Initialize EmailJS
+initEmailJS();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

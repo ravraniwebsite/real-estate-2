@@ -22,7 +22,7 @@ const BrandVideo = () => {
             src="https://res.cloudinary.com/deg3uu0iw/video/upload/v1744792862/agrmuxtqbbotqafoxzc2.mp4"
             title="Brand Promo Video"
             className="absolute inset-0 w-full h-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
         </div>

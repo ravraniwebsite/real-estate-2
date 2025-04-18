@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaUser, FaEnvelope, FaPhone, FaHome, FaComment } from 'react-icons/fa';
+import { sendEnquiryNotification } from '../../utils/emailService';
 
 const Form = () => {
   const initialState = {
@@ -14,6 +15,26 @@ const Form = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [properties, setProperties] = useState([]);
+
+  // Fetch properties for the email template
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/get-properties`
+        );
+        const data = await response.json();
+        if (data.success) {
+          setProperties(data.data || []);
+        }
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+      }
+    };
+
+    fetchProperties();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,6 +51,13 @@ const Form = () => {
     setSuccess(false);
 
     try {
+      // Prepare enquiry data with date
+      const enquiryData = {
+        ...formData,
+        date: new Date().toISOString().split('T')[0]
+      };
+
+      // Submit enquiry to server
       const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/enquire`,
         {
@@ -37,22 +65,23 @@ const Form = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            ...formData,
-            date: new Date().toISOString().split('T')[0]
-          }),
+          body: JSON.stringify(enquiryData),
         }
       );
 
       const data = await response.json();
       
       if (data.success) {
+        // Send email notification
+        await sendEnquiryNotification(enquiryData, properties);
+        
         setSuccess(true);
         setFormData(initialState);
       } else {
         setError('Failed to submit enquiry. Please try again.');
       }
     } catch (error) {
+      console.error('Error submitting form:', error);
       setError('An error occurred. Please try again later.');
     } finally {
       setLoading(false);

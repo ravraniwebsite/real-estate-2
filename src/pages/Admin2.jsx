@@ -43,6 +43,9 @@ const Admin2 = () => {
     answer: ''
   });
   const [selectedPropertyFaqs, setSelectedPropertyFaqs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const [activeSection, setActiveSection] = useState('enquiries');
 
   // Check login status on component mount
   useEffect(() => {
@@ -354,6 +357,30 @@ const Admin2 = () => {
     }
   };
 
+  // Add pagination functions
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentEnquiries = enquiries.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(enquiries.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // Add section navigation functions
+  const goToEnquiries = () => setActiveSection('enquiries');
+  const goToProperties = () => setActiveSection('properties');
+
   if (showLogin) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -527,103 +554,183 @@ const Admin2 = () => {
                 </div>
               )}
               
-              {/* Enquiries Table */}
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-semibold text-gray-100">Enquiries</h3>
-                  <button
-                    onClick={() => exportToCSV(enquiries, 'enquiries.csv')}
-                    className="flex items-center px-4 py-2 bg-[#b38f4f] text-white rounded-lg hover:bg-[#94723e] transition-colors shadow-sm"
+              {/* Section Navigation */}
+              <div className="flex justify-center mb-6">
+                <div className="flex space-x-4">
+                  <button 
+                    onClick={goToEnquiries}
+                    className={`px-4 py-2 rounded-lg flex items-center ${
+                      activeSection === 'enquiries' 
+                        ? 'bg-[#b38f4f] text-white' 
+                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    }`}
                   >
-                    <FaDownload className="mr-2" />
-                    Export CSV
+                    <FaEnvelope className="mr-2" />
+                    Enquiries
+                  </button>
+                  <button 
+                    onClick={goToProperties}
+                    className={`px-4 py-2 rounded-lg flex items-center ${
+                      activeSection === 'properties' 
+                        ? 'bg-[#b38f4f] text-white' 
+                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    <FaHome className="mr-2" />
+                    Properties
                   </button>
                 </div>
-                <div className="overflow-x-auto rounded-lg">
-                  {loading ? (
-                    <div className="flex justify-center items-center py-8">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#b38f4f]"></div>
-                    </div>
-                  ) : enquiries.length === 0 ? (
-                    <p className="text-center py-4 text-gray-400">No enquiries found.</p>
-                  ) : (
+              </div>
+              
+              {/* Enquiries Table */}
+              {activeSection === 'enquiries' && (
+                <div>
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-semibold text-gray-100">Enquiries</h3>
+                    <button
+                      onClick={() => exportToCSV(enquiries, 'enquiries.csv')}
+                      className="flex items-center px-4 py-2 bg-[#b38f4f] text-white rounded-lg hover:bg-[#94723e] transition-colors shadow-sm"
+                    >
+                      <FaDownload className="mr-2" />
+                      Export CSV
+                    </button>
+                  </div>
+                  <div className="overflow-x-auto rounded-lg">
+                    {loading ? (
+                      <div className="flex justify-center items-center py-8">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#b38f4f]"></div>
+                      </div>
+                    ) : enquiries.length === 0 ? (
+                      <p className="text-center py-4 text-gray-400">No enquiries found.</p>
+                    ) : (
+                      <>
+                        <table className="min-w-full divide-y divide-gray-700">
+                          <thead className="bg-gray-700">
+                            <tr>
+                              <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
+                              <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
+                              <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Phone</th>
+                              <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Property</th>
+                              <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-gray-800 divide-y divide-gray-700">
+                              {currentEnquiries.map((enquiry) => (
+                                <tr key={enquiry._id} className="hover:bg-gray-700/50">
+                                <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.name}</td>
+                                <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.email}</td>
+                                <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.phone}</td>
+                                <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.property}</td>
+                                <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.date}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                        
+                        {/* Pagination Controls */}
+                        <div className="flex justify-between items-center mt-4 px-4">
+                          <div className="text-sm text-gray-400">
+                            Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, enquiries.length)} of {enquiries.length} entries
+                          </div>
+                          <div className="flex space-x-2">
+                            <button 
+                              onClick={prevPage}
+                              disabled={currentPage === 1}
+                              className={`p-2 rounded-lg ${
+                                currentPage === 1 
+                                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed' 
+                                  : 'bg-[#b38f4f] text-white hover:bg-[#94723e]'
+                              }`}
+                            >
+                              <FaChevronLeft />
+                            </button>
+                            <div className="flex items-center">
+                              {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+                                <button
+                                  key={number}
+                                  onClick={() => paginate(number)}
+                                  className={`mx-1 px-3 py-1 rounded ${
+                                    currentPage === number 
+                                      ? 'bg-[#b38f4f] text-white' 
+                                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                                  }`}
+                                >
+                                  {number}
+                                </button>
+                              ))}
+                            </div>
+                            <button 
+                              onClick={nextPage}
+                              disabled={currentPage === totalPages}
+                              className={`p-2 rounded-lg ${
+                                currentPage === totalPages 
+                                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed' 
+                                  : 'bg-[#b38f4f] text-white hover:bg-[#94723e]'
+                              }`}
+                            >
+                              <FaChevronRight />
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Properties Table */}
+              {activeSection === 'properties' && (
+                <div>
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-semibold text-gray-100">Properties</h3>
+                    <button
+                      onClick={() => exportToCSV(properties, 'properties.csv')}
+                      className="flex items-center px-4 py-2 bg-[#b38f4f] text-white rounded-lg hover:bg-[#94723e] transition-colors shadow-sm"
+                    >
+                      <FaDownload className="mr-2" />
+                      Export CSV
+                    </button>
+                  </div>
+                  <div className="overflow-x-auto rounded-lg">
                     <table className="min-w-full divide-y divide-gray-700">
                       <thead className="bg-gray-700">
                         <tr>
                           <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
-                          <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
-                          <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Phone</th>
-                          <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Property</th>
-                          <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
+                          <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Location</th>
+                          <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Price</th>
+                          <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Status</th>
+                          <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
                         </tr>
                       </thead>
                       <tbody className="bg-gray-800 divide-y divide-gray-700">
-                        {enquiries.map((enquiry) => (
-                          <tr key={enquiry._id} className="hover:bg-gray-700/50">
-                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.name}</td>
-                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.email}</td>
-                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.phone}</td>
-                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.property}</td>
-                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{enquiry.date}</td>
+                        {properties.map((property) => (
+                          <tr key={property.id} className="hover:bg-gray-700/50">
+                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{property.name}</td>
+                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{property.location}</td>
+                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{property.price}</td>
+                            <td className="px-4 md:px-6 py-4 whitespace-nowrap">
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-900/20 text-green-400">
+                                {property.status || 'Active'}
+                              </span>
+                            </td>
+                            <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm">
+                              <button className="text-[#b38f4f] hover:text-[#94723e] mr-3">
+                                <FaEdit />
+                              </button>
+                              <button 
+                                className="text-red-500 hover:text-red-400"
+                                onClick={() => handleDeleteProperty(property.id)}
+                              >
+                                <FaTrash />
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
-                  )}
+                  </div>
                 </div>
-              </div>
-
-              {/* Properties Table */}
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-semibold text-gray-100">Properties</h3>
-                  <button
-                    onClick={() => exportToCSV(properties, 'properties.csv')}
-                    className="flex items-center px-4 py-2 bg-[#b38f4f] text-white rounded-lg hover:bg-[#94723e] transition-colors shadow-sm"
-                  >
-                    <FaDownload className="mr-2" />
-                    Export CSV
-                  </button>
-                </div>
-                <div className="overflow-x-auto rounded-lg">
-                  <table className="min-w-full divide-y divide-gray-700">
-                    <thead className="bg-gray-700">
-                      <tr>
-                        <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
-                        <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Location</th>
-                        <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Price</th>
-                        <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Status</th>
-                        <th className="px-4 md:px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-gray-800 divide-y divide-gray-700">
-                      {properties.map((property) => (
-                        <tr key={property.id} className="hover:bg-gray-700/50">
-                          <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{property.name}</td>
-                          <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{property.location}</td>
-                          <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm text-gray-300">{property.price}</td>
-                          <td className="px-4 md:px-6 py-4 whitespace-nowrap">
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-900/20 text-green-400">
-                              {property.status || 'Active'}
-                            </span>
-                          </td>
-                          <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm">
-                            <button className="text-[#b38f4f] hover:text-[#94723e] mr-3">
-                              <FaEdit />
-                            </button>
-                            <button 
-                              className="text-red-500 hover:text-red-400"
-                              onClick={() => handleDeleteProperty(property.id)}
-                            >
-                              <FaTrash />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              )}
             </div>
           )}
   

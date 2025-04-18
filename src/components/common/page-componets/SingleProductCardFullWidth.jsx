@@ -5,6 +5,10 @@ import CardHoverIcons from "./CardHoverIcons";
 import CardLabels from "./CardLabels";
 import { useState } from "react";
 import ContactPopupForm from "./ContactPopupForm";
+import { MdHolidayVillage } from "react-icons/md";
+import { GiPlot } from "react-icons/gi";
+import { FaHome } from "react-icons/fa";
+import { MdMap } from "react-icons/md"; // map-style icon
 
 const SingleProductCardFullWidth = ({
   _id,
@@ -58,21 +62,24 @@ const SingleProductCardFullWidth = ({
             <div className="flex justify-between mt-3">
               <div className="flex-align-center gap-x-2">
                 <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
-                  <BiBed />
+                  <MdMap />
                 </div>
-                <p className="text-sm">{number_of_beds} Beds</p>
+                <p className="text-sm">Plot's
+                </p>
               </div>
               <div className="flex-align-center gap-x-2">
                 <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
-                  <BiTab />
+                  <FaHome />
                 </div>
-                <p className="text-sm">{number_of_bathrooms} Bathrooms</p>
+                <p className="text-sm"> 2BHK/3BHK
+                </p>
               </div>
               <div className="flex-align-center gap-x-2">
                 <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
-                  <BiMapAlt />
+                  <MdHolidayVillage />
                 </div>
-                <p className="text-sm">{parking_space} Parking</p>
+                <p className="text-sm"> DUPLEX VILLAS
+                </p>
               </div>
             </div>
 

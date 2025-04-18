@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IoClose } from 'react-icons/io5';
+import { sendEnquiryNotification } from '../../../utils/emailService';
 
 const ContactPopupForm = ({ isOpen, onClose, propertyName }) => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,26 @@ const ContactPopupForm = ({ isOpen, onClose, propertyName }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [properties, setProperties] = useState([]);
+
+  // Fetch properties for the email template
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/get-properties`
+        );
+        const data = await response.json();
+        if (data.success) {
+          setProperties(data.data || []);
+        }
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+      }
+    };
+
+    fetchProperties();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,23 +41,30 @@ const ContactPopupForm = ({ isOpen, onClose, propertyName }) => {
     setSuccess(false);
 
     try {
+      // Prepare enquiry data with date
+      const enquiryData = {
+        ...formData,
+        date: new Date().toISOString().split('T')[0]
+      };
+
+      // Submit enquiry to server
       const response = await fetch(
-        "https://xbfakjw2ee.execute-api.ap-south-1.amazonaws.com/dev/enquire",
+        `${process.env.REACT_APP_SERVER_URL}/enquire`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            ...formData,
-            date: new Date().toISOString().split('T')[0]
-          }),
+          body: JSON.stringify(enquiryData),
         }
       );
 
       const data = await response.json();
       
       if (data.success) {
+        // Send email notification
+        await sendEnquiryNotification(enquiryData, properties);
+        
         setSuccess(true);
         setFormData({ name: '', email: '', phone: '', property: propertyName || '', message: '' });
         setTimeout(() => {

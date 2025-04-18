@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Enquiry Notification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .content {
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .property-card {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .property-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .property-info {
+            margin-top: 10px;
+        }
+        
+        .property-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .property-price {
+            color: #2c5282;
+            font-weight: bold;
+        }
+        
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2c5282;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>New Enquiry Received</h1>
+    </div>
+
+    <div class="content">
+        <h2>Enquiry Details</h2>
+        <p><strong>Name:</strong> {{name}}</p>
+        <p><strong>Email:</strong> {{email}}</p>
+        <p><strong>Phone:</strong> {{phone}}</p>
+        <p><strong>Property:</strong> {{property}}</p>
+        <p><strong>Message:</strong> {{message}}</p>
+        <p><strong>Date:</strong> {{date}}</p>
+
+        <h2>Featured Properties</h2>
+        {{propertiesHtml}}
+
+        <p style="text-align: center;">
+            <a href="{{adminUrl}}" class="button">View All Enquiries</a>
+        </p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; {{currentYear}} Your Company Name. All rights reserved.</p>
+    </div>
+</body>
+
+</html>

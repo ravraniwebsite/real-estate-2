@@ -35,10 +35,17 @@ import NewsLetter from "./components/common/NewsLetter";
 import Admin from "./pages/Admin";
 import DetailedPage from "./pages/DetailedPage";
 import Admin2 from "./pages/Admin2";
+import { initEmailJS } from "./utils/emailService";
+
 function App() {
   const [showButton, setShowButton] = useState(false);
   const dispatch = useDispatch();
   const route = useLocation();
+
+  // Initialize EmailJS
+  useEffect(() => {
+    initEmailJS();
+  }, []);
 
   // Show/Hide scroll to top button
   window.addEventListener("scroll", () => {

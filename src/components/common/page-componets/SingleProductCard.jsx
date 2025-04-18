@@ -5,6 +5,11 @@ import CardHoverIcons from "./CardHoverIcons";
 import CardLabels from "./CardLabels";
 import { useState } from "react";
 import ContactPopupForm from "./ContactPopupForm";
+import { MdHolidayVillage } from "react-icons/md";
+import { GiPlot } from "react-icons/gi";
+import { FaHome } from "react-icons/fa";
+import { MdMap } from "react-icons/md"; // map-style icon
+
 
 const SingleProductCard = ({
   _id,
@@ -60,23 +65,26 @@ const SingleProductCard = ({
             <div className="grid grid-cols-2 gap-3">
               <div className="flex items-center space-x-2">
                 <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
-                  <BiBed />
+                  <MdMap />
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">{number_of_beds} Beds</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300"> Plot's
+                </p>
               </div>
               
               <div className="flex items-center space-x-2">
                 <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
-                  <BiTab />
+                  <FaHome   />
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">{number_of_bathrooms} Baths</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">2BHK/3BHK
+                </p>
               </div>
               
               <div className="flex items-center space-x-2">
                 <div className="icon-box !w-7 !h-7 bg-primary/20 hover:!bg-primary/40 text-primary">
-                  <FaParking />
+                <MdHolidayVillage />
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">{parking_space} Parking</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300"> DUPLEX VILLAS
+                </p>
               </div>
               
               
