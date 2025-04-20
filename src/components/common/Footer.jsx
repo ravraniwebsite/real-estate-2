@@ -148,6 +148,22 @@ const Footer = () => {
           © 2025 <span className="text-primary">Ravrani Developers</span> | TS Rera
         </p>
       </div>
+
+      <div className="py-1 mt-5 text-center">
+  <p>
+    Managed &amp; @ Developed By{' '}
+    <a 
+      href="https://www.meticsynergy.com/" 
+      className="text-primary " 
+      target="_blank" 
+      rel="noopener noreferrer"
+    >
+      meticsynergy.com
+    </a>{' '}
+    | Digital marketing agency
+  </p>
+</div>
+
     </div>
   );
 };
